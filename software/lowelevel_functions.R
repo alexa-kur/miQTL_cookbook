@@ -7,7 +7,7 @@ mb = sample(c(NA,2),size = 100,replace = T)
 snp = sample(c(0,1,2),size = 100,replace = T)
 covar = matrix(rnorm(200),nrow = 100,dimnames = list(NULL,c("cov1","cov2")))
 
-quantitative_model = function (snp, mb, covar){
+binary_model = function (snp, mb, covar){
  
   y = as.integer(!is.na(mb))
   X = cbind(1,covar,snp)
