@@ -6,7 +6,6 @@
 # covar is a matrix of covariates 
 
 quantitative_model = function (snp, mb, covar){
-  
   y = mb[!is.na(mb)]
   X = cbind(1,covar,snp)[!is.na(mb),]
   Nres = length(y) - ncol(X)
