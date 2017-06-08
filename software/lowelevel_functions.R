@@ -17,7 +17,7 @@ quantitative_model = function (snp, mb, covar){
 
   betaHat = try(solve(t(X) %*% X) %*% t(X) %*% y,silent = T)
   if(class(betaHat) == "try-error") {
-    return(c(length(y),NA,NA,NA,NA))
+    return(c(length(y),reMAF,NA,NA,NA,NA))
   } else {
      MSE = sum((y - X %*% betaHat)^2)/Nres
   betaSD =  sqrt(diag(MSE * solve(t(X)%*% X)))
@@ -33,11 +33,23 @@ quantitative_model = function (snp, mb, covar){
 # run analysis per bacteria for all snps (assuming in genotype file snps are in rows)
 #bac is vector of bacteria
 #genotypes is matrix with snps in rows
-run_per_bac = function(genotypes,bac,covar){
+
+run_per_bac_parallel = function(genotypes,bac,covar,cluster){
+  res = parApply(cl=cluster,genotypes,1,function(x){quantitative_model(x,bac,covar)})
+  res = t(res)
+  colnames(res) = c("Nnz","MAF","beta","betaSD","Fstat","pvalue")
+  res
+}
+
+
+run_per_bac_single = function(genotypes,bac,covar){
   res = apply(genotypes,1,function(x){quantitative_model(x,bac,covar)})
   res = t(res)
-  colnames(res) = c("Nnz","Fstat","beta","pvalue")
+  colnames(res) = c("Nnz","MAF","beta","betaSD","Fstat","pvalue")
+  res
 }
+
+
 
 LRT.glm.fit <- function(glm1,glm0){
   df.null <- glm0$df.residual
