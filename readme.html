@@ -131,9 +131,9 @@ $(document).ready(function () {
 <h1>Overall description</h1>
 <p>This is the cookbook for performing the GWAS analysis of microbial abundance based on analysis of 16S rRNA sequencing dataset. It includes 4 major steps:</p>
 <ol style="list-style-type: decimal">
-<li><a href="#step1">Processing of 16S data</a></li>
-<li><a href="#step2">Processing of SNP microarray data</a></li>
-<li><a href="#step3">Performing the association study</a></li>
+<li><a href="#chapter-1-16s-data-processing">Processing of 16S data</a></li>
+<li><a href="#chapter-2-genotype-imputation">Processing of SNP microarray data</a></li>
+<li><a href="#chapter3-peform-genome-wide-association-study">Performing the association study</a></li>
 <li>Making the meta-analysis</li>
 </ol>
 <p>Steps from 1 to 3 would be performed in-house by every participating group. Step 4 will be performed in UMCG (Groningen). Mostly, you can just copy the code strings from this cookbook and run them, but sometimes it’s not the case (yet, but it will be after beta-testing).</p>
@@ -166,8 +166,8 @@ $(document).ready(function () {
 </ol>
 </div>
 </div>
-<div id="chapter-1.-16s-data-processing-step1" class="section level1">
-<h1>Chapter 1. 16S data processing (#step1)</h1>
+<div id="chapter-1.-16s-data-processing" class="section level1">
+<h1>Chapter 1. 16S data processing</h1>
 <p>For 16S analysis, RDP Classifier will be used instead of OTU picking, since it has shown more consistent results between different domains. According to the pipeline, Genome-Wide Association Study will be performed for the following taxonomic levels:</p>
 <ol style="list-style-type: decimal">
 <li>Taxonomic levels:
@@ -245,8 +245,8 @@ GGGAGCAAACAGG</code></pre>
 </div>
 </div>
 </div>
-<div id="chapter-2.-genotype-imputation-step2" class="section level1">
-<h1>Chapter 2. Genotype imputation (#step2)</h1>
+<div id="chapter-2.-genotype-imputation" class="section level1">
+<h1>Chapter 2. Genotype imputation</h1>
 <p>To simplify the analysis, we should have genotypes harmonized between cohorts. We propose to use one imputation server: <a href="https://imputationserver.sph.umich.edu/index.html">Michigan Imputation Server</a>. All imputation steps are nicely described on the <a href="https://imputationserver.sph.umich.edu/index.html#!pages/help">server help page</a>, so in this guideline we just mention crucial steps.</p>
 <div id="data-preparation" class="section level2">
 <h2>Data preparation</h2>
@@ -293,8 +293,8 @@ unzip vcfparse.zip
 ./ic -d &lt;directory&gt; -r r1.1  -h -o &lt;OUTPUT&gt;</code></pre>
 </div>
 </div>
-<div id="chapter3.-peform-genome-wide-association-study-step3" class="section level1">
-<h1>Chapter3. Peform Genome-Wide Association Study (#step3)</h1>
+<div id="chapter3.-peform-genome-wide-association-study" class="section level1">
+<h1>Chapter3. Peform Genome-Wide Association Study</h1>
 <p>UNDER CONSTRUCTION</p>
 </div>
 <div id="appendix-1.-otu-based-16s-data-processing" class="section level1">
@@ -371,7 +371,7 @@ final_ln = log(final_table)
 final_table[final_table == &quot;-Inf&quot;] = NA
 write.table(final_table,file = &quot;microbes.txt&quot;,sep=&quot;\t&quot;)</code></pre>
 </div>
-<div id="Appendix2" class="section level2">
+<div id="appendix-2.-fasta-file-rarefaction" class="section level2">
 <h2>Appendix 2. FASTA file rarefaction</h2>
 <p>We recommend to perform rarefaction before running the pipeline. To make it truly random, this procedure can be applied:</p>
 <ol style="list-style-type: decimal">
