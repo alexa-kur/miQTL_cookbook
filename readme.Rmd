@@ -85,17 +85,18 @@ These software and databases are necessary:
 
 You also need reference database for RDP Classifier and some additional scripts. They are included in this GitHub page, and located in the folders [database](https://github.com/alexa-kur/miQTL_cookbook/tree/master/database) and [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). The list of things you need to get here includes:
 
-4. SILVA 128 release database prepared for RDP Classifier. available on this Github in the folder named [database](https://github.com/alexa-kur/miQTL_cookbook/tree/master/database). It's a spanned zip archive, so you first need to unzip it. It's also available on the consortium [Dropbox](https://www.dropbox.com/home/Microbiome-QTL_Charge). Located in the folder [CookBook_CHARGE_miQTL/database](https://www.dropbox.com/home/Microbiome-QTL_Charge/CookBook_CHARGE_miQTL/database) and named *silva128_rdpDB.zip*. Also 
+4. SILVA 128 release database prepared for RDP Classifier. available on this Github in the folder named [database](https://github.com/alexa-kur/miQTL_cookbook/tree/master/database). It's a spanned zip archive, so you first need to unzip it. It's also available on the consortium [Dropbox](https://www.dropbox.com/home/Microbiome-QTL_Charge): located in the folder [CookBook_CHARGE_miQTL/database](https://www.dropbox.com/home/Microbiome-QTL_Charge/CookBook_CHARGE_miQTL/database) and named *silva128_rdpDB.zip*. 
 5. RDP output parsing script. Located in the folder [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software) and named **step1.2_rdp_process.sh**.
 6. Script for generating summary statistics **step1.3_generate_summary.R**. Located in the folder [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software)
 7. Filtering and transformation script **step1.4_filter_and_transform.R**. Located in the folder [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software)
 
-Before usage, you can put the scripts and folder with 16S database to your project folder. 
+Before usage, you can put the scripts and 16S database folter to your project folder. 
+
 ## 1.3. Running data processing. 
 
 ### Step 1. Taxonomy binning. 
 
-From your project folder. Replace SEQUENCES.FASTA to the filename of your 16S sequences and run:
+Go to your project folder. Replace SEQUENCES.FASTA to the filename of your 16S sequences and run:
 
 ```
 java -Xmx10G -jar ./rdp_classifier_2.12/dist/classifier.jar -t ./SILVA128_rdpDB/rRNAClassifier.properties -o results.out SEQUENCES.FASTA
@@ -123,7 +124,7 @@ Rscript step1.3_generate_summary.R taxonomy_table.txt COHORT_NAME_summary_16s.tx
 
 ### Step 4. Abundance filtering and transformation
 
-The script *filter_and_transform.R* removes taxonomies presented in less than 10% of samples and performes log transformation 
+The script *step1.4_filter_and_transform.R* removes taxonomies presented in less than 10% of samples and performes log transformation 
 ```
 Rscript step1.4_filter_and_transform.R taxonomy table.txt tax_filtered_logTrans.txt 0.1
 ```
