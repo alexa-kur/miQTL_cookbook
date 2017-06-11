@@ -36,7 +36,7 @@ Steps from 1 to 3 would be performed in-house by every participating group. Step
 3. Meta-analysis
     + will be performed separately, for binary and quantitative models
 
-# Chapter 1. 16S data processing {#step1}
+# Chapter 1. 16S data processing (#step1)
 
 For 16S analysis, RDP Classifier will be used instead of OTU picking, since it has shown more consistent results between different domains. According to the pipeline, Genome-Wide Association Study will be performed for the following taxonomic levels:
 
@@ -130,7 +130,7 @@ Rscript step1.4_filter_and_transform.R taxonomy table.txt tax_filtered_logTrans.
 
 **tax_filtered_logTrans.txt** fill be generated. This file will be used in [GWAS](#step3) .  
 
-# Chapter 2. Genotype imputation {#step2}
+# Chapter 2. Genotype imputation (#step2)
 
 To simplify the analysis, we should have genotypes harmonized between cohorts. We propose to use one imputation server: [Michigan Imputation Server](https://imputationserver.sph.umich.edu/index.html). All imputation steps are nicely described on the [server help page](https://imputationserver.sph.umich.edu/index.html#!pages/help), so in this guideline we just mention crucial steps.
 
@@ -189,9 +189,9 @@ unzip vcfparse.zip
 ./ic -d <directory> -r r1.1  -h -o <OUTPUT>
 ```
 
-# Chapter3. Peform Genome-Wide Association Study {#step3}
+# Chapter3. Peform Genome-Wide Association Study (#step3)
 
-IN PROGRESS
+UNDER CONSTRUCTION
 
 # Appendix 1. OTU-based 16S data processing
 
