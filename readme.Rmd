@@ -133,7 +133,7 @@ Rscript step1.4_filter_and_transform.R taxonomy table.txt tax_filtered_logTrans.
 # Chapter 2. Genotype imputation
 
 To simplify the analysis, we should have genotypes harmonized between cohorts. We propose to use one imputation server: [Michigan Imputation Server](https://imputationserver.sph.umich.edu/index.html). 
-Carolina Medina-Gomez was very pleased to prepase very nice instruction for imputation, please find it in this [Docx file][Imputation_protocol_description.docx]. In addition to that, you can also check the documentation on HRC [server help page](https://imputationserver.sph.umich.edu/index.html#!pages/help).
+Carolina Medina-Gomez was very pleased to prepase very nice instruction for imputation, please find it in this [Docx file](Imputation_protocol_description.docx). In addition to that, you can also check the documentation on HRC [server help page](https://imputationserver.sph.umich.edu/index.html#!pages/help).
 
 # Chapter3. Peform Genome-Wide Association Study
 
