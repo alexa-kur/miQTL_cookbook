@@ -111,7 +111,7 @@ File **results.out** will be generated. Please note that this step is time consu
 bash step1.2_rdp_process.sh results.out 0.8
 ````
 
-It will generate file **taxonomy_table.txt**, which is the counts of taxonomies in your dataset. 
+It will generate file **taxonomy_table.txt**, tab-separated table which contains per-sample counts of taxa in your dataset. 
 
 
 ### Step 3. Generate summary statistics
@@ -129,7 +129,7 @@ The script *step1.4_filter_and_transform.R* removes taxonomies presented in less
 Rscript step1.4_filter_and_transform.R taxonomy table.txt tax_filtered_logTrans.txt 0.1
 ```
 
-**tax_filtered_logTrans.txt** fill be generated. This file will be used in [GWAS](#step3) .  
+**tax_filtered_logTrans.txt** fill be generated. This file will be used in [GWAS](#chapter3-peform-genome-wide-association-study) .  
 
 # Chapter 2. Genotype imputation
 
