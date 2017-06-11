@@ -107,7 +107,7 @@ File **results.out** will be generated. Please note that this step is time consu
 ### Step 2. Process mapping results.
 
 ```
-bash step1.3_rdp_process.sh results.out 0.8
+bash step1.2_rdp_process.sh results.out 0.8
 ````
 
 It will generate file **taxonomy_table.txt**, which is the counts of taxonomies in your dataset. 
@@ -118,14 +118,14 @@ It will generate file **taxonomy_table.txt**, which is the counts of taxonomies 
 Please run this code and send us the results file **COHORT_NAME_summary_16s.txt** (replace COHORT_NAME to the real name of your cohort)
 
 ```
-Rscript step1.4_generate_summary.R taxonomy_table.txt COHORT_NAME_summary_16s.txt
+Rscript step1.3_generate_summary.R taxonomy_table.txt COHORT_NAME_summary_16s.txt
 ```
 
 ### Step 4. Abundance filtering and transformation
 
 The script *filter_and_transform.R* removes taxonomies presented in less than 10% of samples and performes log transformation 
 ```
-Rscript step1.5_filter_and_transform.R taxonomy table.txt tax_filtered_logTrans.txt 0.1
+Rscript step1.4_filter_and_transform.R taxonomy table.txt tax_filtered_logTrans.txt 0.1
 ```
 
 **tax_filtered_logTrans.txt** fill be generated. This file will be used in [GWAS](#step3) .  
