@@ -1,5 +1,5 @@
 ---
-title: "CHARGE bQTL pipeline"
+title: "CHARGE miQTL pipeline"
 author: "Alexander Kurilshikov"
 date: "June 6, 2017"
 output: html_document
