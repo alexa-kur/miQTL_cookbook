@@ -83,7 +83,7 @@ These software and databases are necessary:
 2. R
 3. RDP Classifier 2.12. Can be downloaded [here](https://sourceforge.net/projects/rdp-classifier/)
 
-You also need reference database for RDP Classifier and some additional scripts. They are included in this GitHub page, and located in the folders [database](https://github.com/alexa-kur/miQTL_cookbook/tree/master/database) and [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software)
+You also need reference database for RDP Classifier and some additional scripts. They are included in this GitHub page, and located in the folders [database](https://github.com/alexa-kur/miQTL_cookbook/tree/master/database) and [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). The list of things you need to get here includes:
 
 4. SILVA 128 release database prepared for RDP Classifier. available on this Github in the folder named [database](https://github.com/alexa-kur/miQTL_cookbook/tree/master/database). It's a spanned zip archive, so you first need to unzip it. It's also available on the consortium [Dropbox](https://www.dropbox.com/home/Microbiome-QTL_Charge). Located in the folder [CookBook_CHARGE_miQTL/database](https://www.dropbox.com/home/Microbiome-QTL_Charge/CookBook_CHARGE_miQTL/database) and named *silva128_rdpDB.zip*. Also 
 5. RDP output parsing script. Located in the folder [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software) and named **step1.2_rdp_process.sh**.
