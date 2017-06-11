@@ -247,51 +247,7 @@ GGGAGCAAACAGG</code></pre>
 </div>
 <div id="chapter-2.-genotype-imputation" class="section level1">
 <h1>Chapter 2. Genotype imputation</h1>
-<p>To simplify the analysis, we should have genotypes harmonized between cohorts. We propose to use one imputation server: <a href="https://imputationserver.sph.umich.edu/index.html">Michigan Imputation Server</a>. All imputation steps are nicely described on the <a href="https://imputationserver.sph.umich.edu/index.html#!pages/help">server help page</a>, so in this guideline we just mention crucial steps.</p>
-<div id="data-preparation" class="section level2">
-<h2>Data preparation</h2>
-<div id="harmonize-your-chip-data-to-be-consistent-with-hrc-imputation-database" class="section level3">
-<h3>harmonize your chip data to be consistent with HRC imputation database</h3>
-<p>There are several tools to check the consistency between user’s microarray data and HRC reference. They can be found on <a href="http://www.well.ox.ac.uk/~wrayner/tools/">this page</a></p>
-<pre class="bash"><code>#download checking tool
-wget http://www.well.ox.ac.uk/~wrayner/tools/HRC-1000G-check-bim.v4.2.5.zip
-unzip HRC-1000G-check-bim.v4.2.5.zip
-#download HRC tab file
-wget ftp://ngs.sanger.ac.uk/production/hrc/HRC.r1-1/HRC.r1-1.GRCh37.wgs.mac5.sites.tab.gz
-gunzip HRC.r1-1.GRCh37.wgs.mac5.sites.tab.gz
-#preprare freq file necessary for the script
-plink --bfile &lt;BED_FILE&gt; --freq --out &lt;FREQ_FILE&gt;
-#run checking tool
-perl HRC-1000G-check-bim-v4.2.pl -b &lt;BED_FILE&gt; -f &lt;FREQ_FILE&gt; -r HRC.r1-1.GRCh37.wgs.mac5.sites.tab -h
-</code></pre>
-</div>
-<div id="prepare-input-files" class="section level3">
-<h3>Prepare input files</h3>
-<p>This server allows anly bgzip-compressed VCF files as an input, so you should translate your PED files to <em>per choromosome</em> VCF’s. These packages are necessary to do this: <a href="https://www.cog-genomics.org/plink2/">plink2</a>, <a href="http://vcftools.sourceforge.net/">VCFtools</a>, <a href="http://sourceforge.net/projects/samtools/files/tabix/">tabix with bgzip</a> and <a href="https://github.com/zhanxw/checkVCF">checkVCF</a></p>
-<pre class="bash"><code>plink --ped mystudy_chr1.ped --map mystudy_chr1.map --recode vcf --out mystudy_chr1
-vcf-sort mystudy_chr1.vcf | bgzip -c &gt; mystudy_chr1.vcf.gz</code></pre>
-<p>That’s possible to get some statistics for your VCF’s using simple script</p>
-<pre class="bash"><code>mkdir checkVCF &amp; cd checkVCF
-wget http://qbrc.swmed.edu/zhanxw/software/checkVCF/checkVCF-20140116.tar.gz
-tar zxf checkVCF-20140116.tar.gz
-cd ../
-python checkVCF/checkVCF.py -r checkVCF/hs37d5.fa -o test &lt;VCF_FILE&gt;</code></pre>
-</div>
-</div>
-<div id="send-data-to-the-server" class="section level2">
-<h2>send data to the server</h2>
-<p>Follow the <a href="https://imputationserver.sph.umich.edu/index.html#!pages/help">HRC instructions</a> to register, upload your VCF files and download the results</p>
-</div>
-<div id="perform-post-imputation-check" class="section level2">
-<h2>perform post-imputation check</h2>
-<p>There is a special tool <a href="http://www.well.ox.ac.uk/~wrayner/tools/Post-Imputation.html">Imputation Checker</a> which allows to get post-imputation summary statistics. It depends on <em>libgd</em> and <em>Perl GD::Graph</em> so first check if you have these libraries installed. See documentation to this tool.</p>
-<pre><code>wget http://www.well.ox.ac.uk/~wrayner/tools/ic.v1.0.2.zip
-wget http://www.well.ox.ac.uk/~wrayner/tools/vcfparse.zip
-unzip ic.v1.0.2.zip
-unzip vcfparse.zip
-./vcfparse.pl -d &lt;directory of VCFs&gt; -o &lt;outputname&gt;
-./ic -d &lt;directory&gt; -r r1.1  -h -o &lt;OUTPUT&gt;</code></pre>
-</div>
+<p>To simplify the analysis, we should have genotypes harmonized between cohorts. We propose to use one imputation server: <a href="https://imputationserver.sph.umich.edu/index.html">Michigan Imputation Server</a>. Carolina Medina-Gomez was very pleased to prepase very nice instruction for imputation, please find here, in the file called <a href="Imputation_protocol_description.docx" class="uri">Imputation_protocol_description.docx</a>. In addition to that, you can also check the documentation on HRC <a href="https://imputationserver.sph.umich.edu/index.html#!pages/help">server help page</a>.</p>
 </div>
 <div id="chapter3.-peform-genome-wide-association-study" class="section level1">
 <h1>Chapter3. Peform Genome-Wide Association Study</h1>
