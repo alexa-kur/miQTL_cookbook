@@ -216,9 +216,9 @@ GGGAGCAAACAGG</code></pre>
 <p>You also need reference database for RDP Classifier and some additional scripts. They are included in this GitHub page, and located in the folders <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/database">database</a> and <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software">software</a></p>
 <ol start="4" style="list-style-type: decimal">
 <li>SILVA 128 release database prepared for RDP Classifier. available on this Github in the folder named <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/database">database</a>. It’s a spanned zip archive, so you first need to unzip it. It’s also available on the consortium <a href="https://www.dropbox.com/home/Microbiome-QTL_Charge">Dropbox</a>. Located in the folder <a href="https://www.dropbox.com/home/Microbiome-QTL_Charge/CookBook_CHARGE_miQTL/database">CookBook_CHARGE_miQTL/database</a> and named <em>silva128_rdpDB.zip</em>. Also</li>
-<li>RDP output parsing script. Located in the folder <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software">software</a> and named <strong>step1.3_rdp_process.sh</strong>.</li>
-<li>Script for generating summary statistics <strong>step1.4_generate_summary.R</strong>. Located in the folder <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software">software</a></li>
-<li>Filtering and transformation script <strong>step1.5_filter_and_transform.R</strong>. Located in the folder <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software">software</a></li>
+<li>RDP output parsing script. Located in the folder <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software">software</a> and named <strong>step1.2_rdp_process.sh</strong>.</li>
+<li>Script for generating summary statistics <strong>step1.3_generate_summary.R</strong>. Located in the folder <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software">software</a></li>
+<li>Filtering and transformation script <strong>step1.4_filter_and_transform.R</strong>. Located in the folder <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software">software</a></li>
 </ol>
 <p>Before usage, you can put the scripts and folder with 16S database to your project folder. ## 1.3. Running data processing.</p>
 <div id="step-1.-taxonomy-binning." class="section level3">
@@ -229,18 +229,18 @@ GGGAGCAAACAGG</code></pre>
 </div>
 <div id="step-2.-process-mapping-results." class="section level3">
 <h3>Step 2. Process mapping results.</h3>
-<pre><code>bash step1.3_rdp_process.sh results.out 0.8</code></pre>
+<pre><code>bash step1.2_rdp_process.sh results.out 0.8</code></pre>
 <p>It will generate file <strong>taxonomy_table.txt</strong>, which is the counts of taxonomies in your dataset.</p>
 </div>
 <div id="step-3.-generate-summary-statistics" class="section level3">
 <h3>Step 3. Generate summary statistics</h3>
 <p>Please run this code and send us the results file <strong>COHORT_NAME_summary_16s.txt</strong> (replace COHORT_NAME to the real name of your cohort)</p>
-<pre><code>Rscript step1.4_generate_summary.R taxonomy_table.txt COHORT_NAME_summary_16s.txt</code></pre>
+<pre><code>Rscript step1.3_generate_summary.R taxonomy_table.txt COHORT_NAME_summary_16s.txt</code></pre>
 </div>
 <div id="step-4.-abundance-filtering-and-transformation" class="section level3">
 <h3>Step 4. Abundance filtering and transformation</h3>
 <p>The script <em>filter_and_transform.R</em> removes taxonomies presented in less than 10% of samples and performes log transformation</p>
-<pre><code>Rscript step1.5_filter_and_transform.R taxonomy table.txt tax_filtered_logTrans.txt 0.1</code></pre>
+<pre><code>Rscript step1.4_filter_and_transform.R taxonomy table.txt tax_filtered_logTrans.txt 0.1</code></pre>
 <p><strong>tax_filtered_logTrans.txt</strong> fill be generated. This file will be used in <a href="#step3">GWAS</a> .</p>
 </div>
 </div>
