@@ -8,7 +8,7 @@ mkdir tmp
 InFile=$1
 cutoff=$2
 
-cat $InFile |sed 's/-//g' |tr -s '\t' '\t'|sed 's/ //g' |sed -e 's/\[/./g;s/\]//g'|perl -pe 's/[.][.]/./g' > tmp/tmp1.out
+cat $InFile |awk 'BEGIN {FS="\t";OFS="\t"}; {sub("-","",$2);print}' |tr -s '\t' '\t'|sed 's/ //g' |sed -e 's/\[/./g;s/\]//g'|perl -pe 's/[.][.]/./g' > tmp/tmp1.out
 
 echo "Second step.."
 date
