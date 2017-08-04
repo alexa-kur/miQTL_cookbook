@@ -140,10 +140,10 @@ Carolina Medina-Gomez was very pleased to prepase very nice instruction for impu
 
 In this section, we will perform the following steps:
 
-1. [Correct microbiome data for covariates](#step-3-1-correct-microbiome-for-covariates)
-2. Translate raw HRC output to the format appropriate for miQTL mapping software
-3. Filter SNPs by imputation quality and MAF
-4. Run miQTL mapping
+1. (Correct microbiome data for covariates)[#step-3-1-correct-microbiome-for-covariates]
+2. (Process HRC VCF files)[#step-3-2-process-hrc-vcf-files]
+3. (Prepare coupling file)[#step3-3-prepare-coupling-file]
+4. (Run miQTL mapping)[#step3-4-run-miqtl-mapping]
 
 All necessary scripts are probided in [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software) folder. Thus, it includes:
 
@@ -224,12 +224,51 @@ mkdir autosomal_genotypes
 cp HRC_VCF/chr[0-9]* autosomal_genotypes
 ```
 
-Then run GenotypeHarmonizer software to perform MAF and QC filtering, and translate genotypes from VCF to TriTyper format:
+Next command will perform the following steps:
+1. MAF filtering (-mf flag, we decided to use 0.01 threshold)
+2. Imputation QC filtering (-ip flag, 0.4)
+3. Remove ambigous bases (polymorphysms with more than 2 alleles)
+4. Translate genotypes from VCF to TRITYPER format
+
+To apply these procedures, run:
+```
+java -Xmx40G -jar ./GenotypeHarmonizer-1.4.20-SNAPSHOT/GenotypeHarmonizer.jar -i autosomal_genotypes -I VCFFOLDER -o genotypes_trityper -O TRITYPER -mf 0.01 -ip 0.4 -asf  
+```
+
+the folder **genotypes_trityper** will be generated.
+
+## Step 3.3. Prepare coupling file
+
+## Step 3.4. Run miQTL mapping
+
+First you need to unzip eQTL pipeline binaries: (eqtl-mapping-pipeline-1.4nZ-dist.zip)[https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/eqtl-mapping-pipeline-1.4nZ-dist.zip] from (software)[https://github.com/alexa-kur/miQTL_cookbook/tree/master/software]. Simply run:
 
 ```
-java -jar 
+unzip -r eqtl-mapping-pipeline-1.4nZ-dist.zip
+```
+
+Our eQTL pipeline requires all the configuraiton written in XML format. The (template XML)[https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template.xml] can be downloaded from (software)[https://github.com/alexa-kur/miQTL_cookbook/tree/master/software]. 
+
+If you used standard file and folder names mentioned in this cookbook, you don't need to modify template, just copy it into the project folder and run the pipeline. So, these are the files that should be located in one place:
+
+1. **tax_corrected.txt**  the microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See (Chapter 1)[#chapter-1-16s-data-processing]
+2. **genotypes_trityper** the folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See (Step 3.2)[#step-3-2-process-hrc-vcf-files]
+3. **coupling_file** file. See (Step 3.3.)[#step-3-3-prepare-coupling-file]
+4. **eqtl-mapping-pipeline-1.4nZ** the folder with eQTL pipeline binaries
+5. **template.xml** XML template from (software)[https://github.com/alexa-kur/miQTL_cookbook/tree/master/software] folder. 
+
+If you have all of these ready, jun run this from a *screen* session:
 
 ```
+java -Xmx30G eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings template.xml 
+```
+
+Now you are done!
+
+```
+java -Xmx40G -jar 
+```
+
 
 
 
