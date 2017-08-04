@@ -153,7 +153,7 @@ All necessary scripts are probided in [software](https://github.com/alexa-kur/mi
 
 ## Step 3.1. Correct microbiome for covariates
 
-First, you need to generate filtered and log-transformed taxonomy table *tax_filtered_logTrans.txt*. Please check [Step 1.4](#step-1-4-abundance-filtering-and-transformation) to explore how to do it. Now you need to create the flat text table with phenotypes you want to correct for. It should be tab-delimited flat text file which suits for loading in R. Phenotypes can be integer or numeric variables or factors. The first column should contain Sample ID's. The typical example is provided below: 
+First, you need to generate filtered and log-transformed taxonomy table *tax_filtered_logTrans.txt*. Please check [Step 1.4](#step-14-abundance-filtering-and-transformation) to explore how to do it. Now you need to create the flat text table with phenotypes you want to correct for. It should be tab-delimited flat text file which suits for loading in R. Phenotypes can be integer or numeric variables or factors. The first column should contain Sample ID's. The typical example is provided below: 
 
 ```
 SampleID  Sex   Age
@@ -253,13 +253,13 @@ unzip -r eqtl-mapping-pipeline-1.4nZ-dist.zip
 
 Our eQTL pipeline requires all the configuraiton written in XML format. The [template XML](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template.xml) can be downloaded from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). 
 
-If you used standard file and folder names mentioned in this cookbook, you don't need to modify template, just copy it into the project folder and run the pipeline. So, these are the files that should be located in one place:
+If you used standard file and folder names mentioned in this cookbook, you don't need to modify template, just copy it into the project folder and run the pipeline. So, these are the files that should be located in project folder:
 
-1. **tax_corrected.txt**  the microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See [Chapter 1](#chapter-1-16s-data-processing)
-2. **genotypes_trityper** the folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 3.2](#step-3-2-process-hrc-vcf-files)
-3. **coupling_file** file. See [Step 3.3.](#step-3-3-prepare-coupling-file)
-4. **eqtl-mapping-pipeline-1.4nZ** the folder with eQTL pipeline binaries
-5. **template.xml** XML template from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software) folder. 
+1. **tax_corrected.txt**  //The microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See [Chapter 1](#chapter-1-16s-data-processing)
+2. **genotypes_trityper** //The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 3.2](#step-32-process-hrc-vcf-files)
+3. **coupling_file.txt** //Coupling file. See [Step 3.3.](#step-33-prepare-coupling-file)
+4. **eqtl-mapping-pipeline-1.4nZ** //The folder with eQTL pipeline binaries
+5. **template.xml** //XML template from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software) folder. 
 
 If you have all of these ready, jun run this from a *screen* session:
 
