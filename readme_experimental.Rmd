@@ -140,10 +140,10 @@ Carolina Medina-Gomez was very pleased to prepase very nice instruction for impu
 
 In this section, we will perform the following steps:
 
-1. [Correct microbiome data for covariates](#step-3-1-correct-microbiome-for-covariates)
-2. [Process HRC VCF files](#step-3-2-process-hrc-vcf-files)
-3. [Prepare coupling file](#step3-3-prepare-coupling-file)
-4. [Run miQTL mapping](#step3-4-run-miqtl-mapping)
+1. [Correct microbiome data for covariates](#step-3-1--correct-microbiome-for-covariates)
+2. [Process HRC VCF files](#step-3-2--process-hrc-vcf-files)
+3. [Prepare coupling file](#step3-3--prepare-coupling-file)
+4. [Run miQTL mapping](#step3-4--run-miqtl-mapping)
 
 All necessary scripts are probided in [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software) folder. Thus, it includes:
 
@@ -173,7 +173,7 @@ Sample3   0       58
 Sample4   1       76
 ```
 
-If your sample names are **different** between taxonomy table and phenotype file, please not that you need to add **linkage file**. This is an example of linkage file:
+If your sample names are **different** between taxonomy table and phenotype file, please add **linkage file**. This is an example of linkage file:
 
 ```
 PhenotypeSample1  StoolSample1
@@ -187,6 +187,7 @@ Now run (assuming your phenotype file is called **phenotypes.txt**)
 ```
 #If your sample ID's are matched
 Rscript step3.1_correct_for_covariates.R tax_filtered_logTrans.txt phenotypes.txt tax_corrected.txt
+
 #If your sample ID's are different between phenotypes and 16s libraries
 Rscript step3.1_correct_for_covariates.R tax_filtered_logTrans.txt phenotypes.txt tax_corrected.txt linkage.txt
 ```
@@ -198,7 +199,7 @@ The file **tax_corrected.txt** will be generated.
 First, you need to install **GenotypeHarmonizer** software. simply untar the archive [GenotypeHarmonizer-1.4.20-dist.tar.gz](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/GenotypeHarmonizer-1.4.20-dist.tar.gz) from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software) folder:
 
 ```
-tar zxf GenotypeHarmonizer-1.4.20-dist.tar.gz
+tar -zxf GenotypeHarmonizer-1.4.20-dist.tar.gz
 ``` 
 
 Please check the structure of the genotype folder you downloaded from HRC. It should be per-chromosome gzipped VCF files:
@@ -225,17 +226,20 @@ cp HRC_VCF/chr[0-9]* autosomal_genotypes
 ```
 
 Next command will perform the following steps:
-1. MAF filtering (-mf flag, we decided to use 0.01 threshold)
-2. Imputation QC filtering (-ip flag, 0.4)
-3. Remove ambigous SNPs (-asf flag)
+1. MAF filtering (*-mf* flag, we decided to use 0.01 threshold)
+2. Imputation QC filtering (*-ip* flag, 0.4)
+3. Remove ambigous SNPs (*-asf* flag)
 4. Translate genotypes from VCF to TRITYPER format
 
 To apply these procedures, run:
 ```
-java -Xmx40G -jar ./GenotypeHarmonizer-1.4.20-SNAPSHOT/GenotypeHarmonizer.jar -i autosomal_genotypes -I VCFFOLDER -o genotypes_trityper -O TRITYPER -mf 0.01 -ip 0.4 -asf  
+java -Xmx40G -jar ./GenotypeHarmonizer-1.4.20-SNAPSHOT/GenotypeHarmonizer.jar -i ./autosomal_genotypes -I VCFFOLDER -o genotypes_trityper -O TRITYPER -mf 0.01 -ip 0.4 -asf  
 ```
 
-the folder **genotypes_trityper** will be generated.
+The folder **genotypes_trityper** will be generated.
+
+For further information on *GenotypeHarmonizer*, please check its [GitHub](https://github.com/molgenis/systemsgenetics/wiki/Genotype-Harmonizer) or just contact me (alexa.kur@gmail.com).
+
 
 ## Step 3.3. Prepare coupling file
 

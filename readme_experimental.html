@@ -242,8 +242,8 @@ GGGAGCAAACAGG</code></pre>
 </div>
 <div id="step-1.4.-abundance-filtering-and-transformation" class="section level3">
 <h3>Step 1.4. Abundance filtering and transformation</h3>
-<p>The script <em>step1.4_filter_and_transform.R</em> removes taxonomies presented in less than 10% of samples and performes log transformation</p>
-<pre><code>Rscript step1.4_filter_and_transform.R taxonomy table.txt tax_filtered_logTrans.txt 0.1</code></pre>
+<p>The script <em>step1.4_filter_and_transform.R</em> removes taxa presented in less than 10% of samples and performes log transformation</p>
+<pre><code>Rscript step1.4_filter_and_transform.R taxonomy_table.txt tax_filtered_logTrans.txt 0.1</code></pre>
 <p><strong>tax_filtered_logTrans.txt</strong> fill be generated. This file will be used in <a href="#chapter3-peform-genome-wide-association-study">miQTL mapping</a> .</p>
 </div>
 </div>
@@ -256,14 +256,20 @@ GGGAGCAAACAGG</code></pre>
 <h1>Chapter3. Peform Genome-Wide Association Study</h1>
 <p>In this section, we will perform the following steps:</p>
 <ol style="list-style-type: decimal">
-<li><a href="#step-3-1.-correct-microbiome-for-covariates">Correct microbiome data for covariates</a></li>
-<li>Translate raw HRC output to the format appropriate for miQTL mapping software</li>
-<li>Filter SNPs by imputation quality and MAF</li>
-<li>Run miQTL mapping</li>
+<li><a href="#step-3-1--correct-microbiome-for-covariates">Correct microbiome data for covariates</a></li>
+<li><a href="#step-3-2--process-hrc-vcf-files">Process HRC VCF files</a></li>
+<li><a href="#step3-3--prepare-coupling-file">Prepare coupling file</a></li>
+<li><a href="#step3-4--run-miqtl-mapping">Run miQTL mapping</a></li>
+</ol>
+<p>All necessary scripts are probided in <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software">software</a> folder. Thus, it includes:</p>
+<ol style="list-style-type: decimal">
+<li>Script <strong>step3.1_correct_for_covariates.R</strong></li>
+<li><strong>GenotypeHarmonizer</strong></li>
+<li><strong>eQTL-pipeline</strong></li>
 </ol>
 <div id="step-3.1.-correct-microbiome-for-covariates" class="section level2">
 <h2>Step 3.1. Correct microbiome for covariates</h2>
-<p>First, you need to generate filtered and log-transformed taxonomy table <em>tax_filtered_logTrans.txt</em>. Please check <a href="#step-1-4--abundance-filtering-and-transformation">Step 1.4</a> to explore how to do it. Now you need to create the flat text table with phenotypes you want to correct for. It should be tab-delimited flat text file which suits for loading in R. Phenotypes can be integer or numeric variables or factors. The first column should contain Sample ID’s. The typical example is provided below:</p>
+<p>First, you need to generate filtered and log-transformed taxonomy table <em>tax_filtered_logTrans.txt</em>. Please check <a href="#step-1-4-abundance-filtering-and-transformation">Step 1.4</a> to explore how to do it. Now you need to create the flat text table with phenotypes you want to correct for. It should be tab-delimited flat text file which suits for loading in R. Phenotypes can be integer or numeric variables or factors. The first column should contain Sample ID’s. The typical example is provided below:</p>
 <pre><code>SampleID  Sex   Age
 Sample1   0       23
 Sample2   1       74
@@ -275,11 +281,70 @@ Sample1   0       23
 Sample2   1       74
 Sample3   0       58
 Sample4   1       76</code></pre>
+<p>If your sample names are <strong>different</strong> between taxonomy table and phenotype file, please add <strong>linkage file</strong>. This is an example of linkage file:</p>
+<pre><code>PhenotypeSample1  StoolSample1
+PhenotypeSample2  StoolSample2</code></pre>
+<p>Phenotype ID comes first, followed by stool sample ID (again, it’s tab-delimited file).</p>
+<p>Now run (assuming your phenotype file is called <strong>phenotypes.txt</strong>)</p>
+<pre><code>#If your sample ID's are matched
+Rscript step3.1_correct_for_covariates.R tax_filtered_logTrans.txt phenotypes.txt tax_corrected.txt
+
+#If your sample ID's are different between phenotypes and 16s libraries
+Rscript step3.1_correct_for_covariates.R tax_filtered_logTrans.txt phenotypes.txt tax_corrected.txt linkage.txt</code></pre>
+<p>The file <strong>tax_corrected.txt</strong> will be generated.</p>
+</div>
+<div id="step-3.2.-process-hrc-vcf-files" class="section level2">
+<h2>Step 3.2. Process HRC VCF files</h2>
+<p>First, you need to install <strong>GenotypeHarmonizer</strong> software. simply untar the archive <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/GenotypeHarmonizer-1.4.20-dist.tar.gz">GenotypeHarmonizer-1.4.20-dist.tar.gz</a> from <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software">software</a> folder:</p>
+<pre><code>tar -zxf GenotypeHarmonizer-1.4.20-dist.tar.gz</code></pre>
+<p>Please check the structure of the genotype folder you downloaded from HRC. It should be per-chromosome gzipped VCF files:</p>
+<pre><code>chr10.dose.vcf.gz
+chr10.dose.vcf.gz.md5
+chr10.dose.vcf.gz.tbi
+chr10.dose.vcf.gz.tbi.md5
+chr10.info.gz
+chr10.info.gz.md5
+chr11.dose.vcf.gz
+chr11.dose.vcf.gz.md5
+chr11.dose.vcf.gz.tbi
+chr11.dose.vcf.gz.tbi.md5
+...</code></pre>
+<p>Keep only autosomal data in the folder (assuming your HRC folder is named <strong>HRC_VCF</strong>):</p>
+<pre><code>mkdir autosomal_genotypes
+cp HRC_VCF/chr[0-9]* autosomal_genotypes</code></pre>
+<p>Next command will perform the following steps: 1. MAF filtering (<em>-mf</em> flag, we decided to use 0.01 threshold) 2. Imputation QC filtering (<em>-ip</em> flag, 0.4) 3. Remove ambigous SNPs (<em>-asf</em> flag) 4. Translate genotypes from VCF to TRITYPER format</p>
+<p>To apply these procedures, run:</p>
+<pre><code>java -Xmx40G -jar ./GenotypeHarmonizer-1.4.20-SNAPSHOT/GenotypeHarmonizer.jar -i ./autosomal_genotypes -I VCFFOLDER -o genotypes_trityper -O TRITYPER -mf 0.01 -ip 0.4 -asf  </code></pre>
+<p>The folder <strong>genotypes_trityper</strong> will be generated.</p>
+<p>For further information on <em>GenotypeHarmonizer</em>, please check its <a href="https://github.com/molgenis/systemsgenetics/wiki/Genotype-Harmonizer">GitHub</a> or just contact me (<a href="mailto:alexa.kur@gmail.com">alexa.kur@gmail.com</a>).</p>
+</div>
+<div id="step-3.3.-prepare-coupling-file" class="section level2">
+<h2>Step 3.3. Prepare coupling file</h2>
+</div>
+<div id="step-3.4.-run-miqtl-mapping" class="section level2">
+<h2>Step 3.4. Run miQTL mapping</h2>
+<p>First you need to unzip eQTL pipeline binaries: <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/eqtl-mapping-pipeline-1.4nZ-dist.zip">eqtl-mapping-pipeline-1.4nZ-dist.zip</a> from <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software">software</a>. Simply run:</p>
+<pre><code>unzip -r eqtl-mapping-pipeline-1.4nZ-dist.zip</code></pre>
+<p>Our eQTL pipeline requires all the configuraiton written in XML format. The <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template.xml">template XML</a> can be downloaded from <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software">software</a>.</p>
+<p>If you used standard file and folder names mentioned in this cookbook, you don’t need to modify template, just copy it into the project folder and run the pipeline. So, these are the files that should be located in one place:</p>
+<ol style="list-style-type: decimal">
+<li><strong>tax_corrected.txt</strong> the microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See <a href="#chapter-1-16s-data-processing">Chapter 1</a></li>
+<li><strong>genotypes_trityper</strong> the folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See <a href="#step-3-2-process-hrc-vcf-files">Step 3.2</a></li>
+<li><strong>coupling_file</strong> file. See <a href="#step-3-3-prepare-coupling-file">Step 3.3.</a></li>
+<li><strong>eqtl-mapping-pipeline-1.4nZ</strong> the folder with eQTL pipeline binaries</li>
+<li><strong>template.xml</strong> XML template from <a href="https://github.com/alexa-kur/miQTL_cookbook/tree/master/software">software</a> folder.</li>
+</ol>
+<p>If you have all of these ready, jun run this from a <em>screen</em> session:</p>
+<pre><code>java -Xmx30G eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings template.xml </code></pre>
+<p>Now you are done!</p>
 </div>
 </div>
-<div id="appendix-1.-otu-based-16s-data-processing" class="section level1">
-<h1>Appendix 1. OTU-based 16S data processing</h1>
+<div id="additions" class="section level1">
+<h1>Additions</h1>
+<div id="appendix-1.-otu-based-16s-data-processing" class="section level2">
+<h2>Appendix 1. OTU-based 16S data processing</h2>
 <p>For those who are still interested in performing 16S processing for their own purposes, we provide the OTU-based pipeline. Please note that for miQTL meta-analysis we require using RDPclassifer pipeline described in section 1!</p>
+</div>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
 <p>First we need to install QIIME on your machine. I should be any kind of Linux machine, including physical or virtual machine. You don’t need to have root priviliges to use QIIME</p>
