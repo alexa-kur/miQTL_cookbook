@@ -140,7 +140,7 @@ Carolina Medina-Gomez was very pleased to prepase very nice instruction for impu
 
 In this section, we will perform the following steps:
 
-1. [Correct microbiome data for covariates](.#step-3-1--correct-microbiome-for-covariates)
+1. [Correct microbiome data for covariates](##step-3-1-correct-microbiome-for-covariates)
 2. [Process HRC VCF files](#step-3-2--process-hrc-vcf-files)
 3. [Prepare coupling file](#step3-3--prepare-coupling-file)
 4. [Run miQTL mapping](#step3-4--run-miqtl-mapping)
