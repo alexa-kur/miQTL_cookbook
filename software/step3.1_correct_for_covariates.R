@@ -7,7 +7,7 @@ coupling_file = options[4]
 tax = read.table(taxonomy_file,header=T,row.names=1,sep="\t")
 phenos = read.table(phenotype_file,header = T,row.names=1,sep="\t")
 
-if (exists("coupling_file")){
+if (exists("coupling_file")&file.exists(coupling_file)){
   coupling = read.table(coupling_file,as.is = T)
   has_both = (coupling[,1] %in% rownames(phenos)) & (coupling[,2] %in% rownames(tax))
   coupling= coupling[has_both,]
