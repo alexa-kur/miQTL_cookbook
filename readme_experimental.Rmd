@@ -261,7 +261,7 @@ If you used standard file and folder names mentioned in this cookbook, the only 
 cat miQTL_cookbook/software/template.xml|perl -pe 's/COHORTNAME/MBPOP/' > ./settings.xml
 ```
 
-The file **settings.xml** will be used on the next stage
+The file **settings.xml** will be used on the next stage.
 
 
 ## Step 3.5. Run miQTL mapping
@@ -269,7 +269,7 @@ The file **settings.xml** will be used on the next stage
 First you need to unzip eQTL pipeline binaries: [eqtl-mapping-pipeline-1.4nZ-dist.zip](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/eqtl-mapping-pipeline-1.4nZ-dist.zip) from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). Simply run:
 
 ```
-unzip -r eqtl-mapping-pipeline-1.4nZ-dist.zip
+unzip eqtl-mapping-pipeline-1.4nZ-dist.zip
 ```
 These are the files that should be located in project folder:
 
