@@ -258,7 +258,7 @@ Our eQTL pipeline requires all the configuraiton written in XML format. The [tem
 If you used standard file and folder names mentioned in this cookbook, the only change you need to do in template is the dataset name. that's easy one-step procedure. For example, assuming your cohort is named *MBRUN*, run
 
 ```
-cat miQTL_cookbook/software/template.xml|perl -pe 's/COHORTNAME/MBPOP/' > ./settings.xml
+cat miQTL_cookbook/software/template.xml|perl -pe 's/COHORTNAME/MBRUN/' > ./settings.xml
 ```
 
 The file **settings.xml** will be used on the next stage.
