@@ -1,7 +1,7 @@
 ---
 title: "CHARGE miQTL pipeline"
 author: "Alexander Kurilshikov"
-date: "June 6, 2017"
+date: "Aug 7, 2017"
 output: html_document
 ---
 
@@ -291,7 +291,7 @@ Now you are done!
 
 For those who are still interested in performing 16S processing for their own purposes, we provide the OTU-based pipeline. Please note that for miQTL meta-analysis we require using RDPclassifer pipeline described in section 1!
 
-## Installation
+### Installation
 
 First we need to install QIIME on your machine. I should be any kind of Linux machine, including physical or virtual machine. You don't need to have root priviliges to use QIIME
 
@@ -307,7 +307,7 @@ source activate qiime1
 print_qiime_config.py
 ```
 
-## SILVA database downloading
+### SILVA database downloading
 
 ```{bash,eval = FALSE}
 #create project dir
@@ -327,7 +327,7 @@ assign_taxonomy_reference_seqs_fp $PWD/Silva119_release/rep_set/97/Silva_119_rep
 assign_taxonomy_id_to_taxonomy_fp $PWD/Silva119_release/taxonomy/97/taxonomy_97_7_levels.txt" > qiime_config
 ```
 
-## Running the OTU picking (closed OTU picking method with 97% cutoff)
+### Running the OTU picking (closed OTU picking method with 97% cutoff)
 
 ```{bash,eval = FALSE}
 # if you have multiple cores, you can run analysis faster in parallel, redefining the $PROCNUM varialbe 
@@ -341,7 +341,7 @@ cat otu_table.tsv|tail -n+2 |perl -pe "s/#OTU ID/OTU_ID/" > temp.tsv
 mv temp.tsv otu_table.tsv
 ```
 
-## Getting taxonomies from OTU table
+### Getting taxonomies from OTU table
 
 For this step, you should have R to be installed. 
 

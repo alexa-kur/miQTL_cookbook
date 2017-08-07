@@ -15,6 +15,7 @@ if (exists("coupling_file")){
   phenos = phenos[coupling[,1],]
   rownames(tax) = rownames(phenos)
   tax = tax[rownames(tax)[grep("[.][0-9]+$",rownames(tax),invert=T)],]
+  phenos = phenos[rownames(tax),]
 } else {
   tax = tax[intersect(rownames(tax),rownames(phenos)),]
   phenos = phenos[rownames(tax),]
