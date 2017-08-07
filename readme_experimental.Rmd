@@ -272,7 +272,7 @@ unzip -r eqtl-mapping-pipeline-1.4nZ-dist.zip
 These are the files that should be located in project folder:
 
 1. **tax_corrected.txt**  // The microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See [Chapter 1](#chapter-1-16s-data-processing) and [Step 3.1.](#step-31-correct-microbiome-for-covariates-and-create-annotation-file)
-2. **tax_annotation.txt** //Annotation file for taxonomies. See [Step 3.1.](#step-31-correct-microbiome-for-covariates-and-create-annotation-file)
+2. **tax_corrected.txt.annot** //Annotation file for taxonomies. See [Step 3.1.](#step-31-correct-microbiome-for-covariates-and-create-annotation-file)
 3. **genotypes_trityper** // The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 3.2](#step-32-process-hrc-vcf-files)
 4. **coupling_file.txt** // Coupling file. See [Step 3.3.](#step-33-prepare-coupling-file)
 5. **eqtl-mapping-pipeline-1.4nZ** // The folder with eQTL pipeline binaries
