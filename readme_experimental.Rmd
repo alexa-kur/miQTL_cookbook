@@ -192,13 +192,7 @@ Rscript step3.1_correct_for_covariates.R tax_filtered_logTrans.txt phenotypes.tx
 Rscript step3.1_correct_for_covariates.R tax_filtered_logTrans.txt phenotypes.txt tax_corrected.txt linkage.txt
 ```
 
-The file **tax_corrected.txt** will be generated. Now you need to create annotation for taxonomy table. From the folder your **tax_corrected.txt** is located, run: 
-
-```
-Rscript step.3.1.1_create_annotation.R tax_corrected.txt tax_annotation.txt
-```
-
-
+The files **tax_corrected.txt** and **tax_corrected.txt.annot** will be generated. 
 
 ## Step 3.2. Process HRC VCF files
 
@@ -278,7 +272,7 @@ If you used standard file and folder names mentioned in this cookbook, you don't
 If you have all of these ready, jun run this from a *screen* session:
 
 ```
-java -Xmx30G eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings template.xml 
+java -XX:ParallelGCThreads=5 -Xmx30G eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings template.xml 
 ```
 
 Now you are done!
