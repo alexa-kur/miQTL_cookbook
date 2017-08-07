@@ -28,9 +28,9 @@
 		<output>
 			<binaryoutput>true</binaryoutput>
   			<textoutput>true</textoutput>
-			<outputdirectory>./output</outputdirectory>
+			<outputdirectory>./COHORTNAME_output</outputdirectory>
 			<outputplotthreshold>0.0</outputplotthreshold>
-			<outputplotdirectory>./output/plots</outputplotdirectory>
+			<outputplotdirectory>./COHORTNAME_output/plots</outputplotdirectory>
 			<maxnreqtlresults>10000000</maxnreqtlresults>
 			<generatesnpsummarystatistics>true</generatesnpsummarystatistics>
 			<generateeqtlpvaluetable>true</generateeqtlpvaluetable>
@@ -47,7 +47,7 @@
 	</defaults>
 	<datasets>
 		<dataset>
-			<name>LLD</name>
+			<name>COHORTNAME</name>
 			<location>./genotypes_trityper</location>
 			<genometoexpressioncoupling>./coupling_file.txt</genometoexpressioncoupling>
 			<expressiondata>./tax_corrected.txt</expressiondata>

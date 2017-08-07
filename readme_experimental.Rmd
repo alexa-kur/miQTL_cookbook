@@ -143,7 +143,8 @@ In this section, we will perform the following steps:
 1. [Correct microbiome data for covariates](#step-31-correct-microbiome-for-covariates-and-create-annotation-file)
 2. [Process HRC VCF files](#step-32-process-hrc-vcf-files)
 3. [Prepare coupling file](#step-33-prepare-coupling-file)
-4. [Run miQTL mapping](#step-34-run-miqtl-mapping)
+4. [Rename cohort in template](#step-34-rename-dataset-in-template)
+5. [Run miQTL mapping](#step-34-run-miqtl-mapping)
 
 All necessary scripts are probided in [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software) folder. Thus, it includes:
 
@@ -250,29 +251,37 @@ GenotypeSample1  StoolSample1
 GenotypeSample2  StoolSample2
 ```
 
-## Step 3.4. Run miQTL mapping
+## Step 3.4. Rename dataset in template
+
+Our eQTL pipeline requires all the configuraiton written in XML format. The [template XML](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template.xml) can be downloaded from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). 
+
+If you used standard file and folder names mentioned in this cookbook, the only change you need to do in template is the dataset name. that's easy one-step procedure. For example, assuming your cohort is named *MBPOP*, run
+
+```
+cat miQTL_cookbook/software/template.xml|perl -pe 's/COHORTNAME/MBPOP' > ./settings.xml
+```
+
+
+## Step 3.5. Run miQTL mapping
 
 First you need to unzip eQTL pipeline binaries: [eqtl-mapping-pipeline-1.4nZ-dist.zip](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/eqtl-mapping-pipeline-1.4nZ-dist.zip) from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). Simply run:
 
 ```
 unzip -r eqtl-mapping-pipeline-1.4nZ-dist.zip
 ```
-
-Our eQTL pipeline requires all the configuraiton written in XML format. The [template XML](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template.xml) can be downloaded from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). 
-
-If you used standard file and folder names mentioned in this cookbook, you don't need to modify template, just copy it into the project folder and run the pipeline. So, these are the files that should be located in project folder:
+These are the files that should be located in project folder:
 
 1. **tax_corrected.txt**  // The microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See [Chapter 1](#chapter-1-16s-data-processing) and [Step 3.1.](#step-31-correct-microbiome-for-covariates-and-create-annotation-file)
 2. **tax_annotation.txt** //Annotation file for taxonomies. See [Step 3.1.](#step-31-correct-microbiome-for-covariates-and-create-annotation-file)
 3. **genotypes_trityper** // The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 3.2](#step-32-process-hrc-vcf-files)
 4. **coupling_file.txt** // Coupling file. See [Step 3.3.](#step-33-prepare-coupling-file)
 5. **eqtl-mapping-pipeline-1.4nZ** // The folder with eQTL pipeline binaries
-6. **template.xml** // XML template from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software) folder. 
+6. **settings.xml** // XML settings file. See [Step 3.4.](#step-34-rename-dataset-in-template)
 
 If you have all of these ready, jun run this from a *screen* session:
 
 ```
-java -XX:ParallelGCThreads=5 -Xmx30G eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings template.xml 
+java -XX:ParallelGCThreads=5 -Xmx30G eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings.xml 
 ```
 
 Now you are done!
