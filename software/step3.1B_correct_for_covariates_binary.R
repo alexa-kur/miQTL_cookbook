@@ -23,6 +23,7 @@ if (exists("coupling_file")&file.exists(coupling_file)){
 
 tax[!is.na(tax)] = 1
 tax[is.na(tax)] = 0
+tax = tax[,colSums(tax == 0)>0.1 * nrow(tax)]
 
 corrected_data = apply(tax,2,function(x){
   x.subset = x[!is.na(x)]
