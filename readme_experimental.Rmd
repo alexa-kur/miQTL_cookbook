@@ -1,7 +1,7 @@
 ---
 title: "CHARGE miQTL pipeline"
 author: "Alexander Kurilshikov"
-date: "Aug 7, 2017"
+date: "Sep 10, 2017"
 output: html_document
 ---
 
@@ -195,6 +195,19 @@ Rscript step3.1_correct_for_covariates.R tax_filtered_logTrans.txt phenotypes.tx
 
 The files **tax_corrected.txt** and **tax_corrected.txt.annot** will be generated. 
 
+## Step 3.1B. Correct microbiome for covariates for Binary analysis
+
+Using the same input files, as on step 3.1, just use another script (and another output name)
+
+```
+#If your sample ID's are matched
+Rscript step3.1B_correct_for_covariates_binary.R tax_filtered_logTrans.txt phenotypes.txt tax_corrected_binary.txt
+
+#If your sample ID's are different between phenotypes and 16s libraries
+Rscript step3.1B_correct_for_covariates_binary.R tax_filtered_logTrans.txt phenotypes.txt tax_corrected_binary.txt linkage.txt
+```
+
+
 ## Step 3.2. Process HRC VCF files
 
 First, you need to install **GenotypeHarmonizer** software. simply untar the archive [GenotypeHarmonizer-1.4.20-dist.tar.gz](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/GenotypeHarmonizer-1.4.20-dist.tar.gz) from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software) folder:
@@ -263,6 +276,16 @@ cat miQTL_cookbook/software/template.xml|perl -pe 's/COHORTNAME/MBRUN/' > ./sett
 
 The file **settings.xml** will be used on the next stage.
 
+## Step 3.4B. Rename dataset in template - binary analysis
+
+If you used standard file and folder names mentioned in this cookbook, the only change you need to do in template is the dataset name. that's easy one-step procedure. For example, assuming your cohort is named *MBRUN*, run
+
+```
+cat miQTL_cookbook/software/template_binary.xml|perl -pe 's/COHORTNAME/MBRUN/' > ./settings_binary.xml
+```
+
+The file **settings_binary.xml** will be used on on the next stage.
+
 
 ## Step 3.5. Run miQTL mapping
 
@@ -283,7 +306,22 @@ These are the files that should be located in project folder:
 If you have all of these ready, jun run this from a *screen* session:
 
 ```
-java -XX:ParallelGCThreads=5 -Xmx30G eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings.xml 
+java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings.xml 
+```
+## Step 3.5B. Run miQTL mapping -binary
+
+Necessary files:
+1. **tax_corrected_binary.txt**  // The microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See [Chapter 1](#chapter-1-16s-data-processing) and [Step 3.1.](#step-31b-correct-microbiome-for-covariates-for-binary-analysis)
+2. **tax_corrected_binary.txt.annot** //Annotation file for taxonomies. See [Step 3.1.](#step-31b-correct-microbiome-for-covariates-for-binary-analysis)
+3. **genotypes_trityper** // The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 3.2](#step-32-process-hrc-vcf-files)
+4. **coupling_file.txt** // Coupling file. See [Step 3.3.](#step-33-prepare-coupling-file)
+5. **eqtl-mapping-pipeline-1.4nZ** // The folder with eQTL pipeline binaries
+6. **settings_binary.xml** // XML settings file. See [Step 3.4.](#step-34b-rename-dataset-in-template-binary-analysis)
+
+If you have all of these ready, jun run this from a *screen* session:
+
+```
+java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings_binary.xml 
 ```
 
 Now you are done!
