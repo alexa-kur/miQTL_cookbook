@@ -16,7 +16,8 @@ This is the cookbook for performing the GWAS analysis of microbial abundance bas
 1. [Processing of 16S data](#chapter-1-16s-data-processing)
 2. [Processing of SNP microarray data](#chapter-2-genotype-imputation)
 3. [Performing the association study](#chapter3-peform-genome-wide-association-study)
-4. Making the meta-analysis
+4. [Acquire account and upload data](#chapter4-acquire-guest-account-and-upload-data) 
+5. Making the meta-analysis
 
 Steps from 1 to 3 would be performed in-house by every participating group. Step 4 will be performed in UMCG (Groningen). Mostly, you can just copy the code strings from this cookbook and run them, but sometimes it's not the case (yet, but it will be after beta-testing).
 
@@ -324,8 +325,65 @@ If you have all of these ready, jun run this from a *screen* session:
 java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings_binary.xml 
 ```
 
-Now you are done!
+You are done! Now you need to upload the results to UMCG server. 
 
+#Step 4. Acquire guest account and upload data 
+
+1. Generate private and public key pair as documented here:
+[http://wiki.gcc.rug.nl/wiki/RequestAccount]
+2. Send the e-mail to GCC Helpdesk (Helpdesk dot GCC dot Groningen at gmail dot com) and Alex Kurilshikov (alexa.kur @ gmail.com) asking the guest account. The format of letter in the following:
+```{r, eval = FALSE}
+Dear GCC Helpdesk,
+
+ I am participating MiBioGen Consortium,contact is Alex Kurilshikov (cc’d). The name of the cohort is [LLD/MIBS/ROTTERDAM/FGFP, etc].
+
+ Please provide me:
+ 1. guest account to the cher-ami SFTP server for three months.
+ 2. access to the umcg-mibiogen shared account.
+
+ My public key is attached.
+
+ Please cc: alexa.kur@gmail.com and sasha.zhernakova@gmail.com to all the correspondence and provide them access to my guest account.
+
+ Best regards,
+ [Name]
+ [Institution]
+```
+
+3. If you are ready with the analyses, please upload the the data to the server to your guest account acquired in Step 7 (named umcg-guest[0-9]). Please create the folder which is named by your cohort name and upload two output directories generated in step 3, named **./COHORTNAME_output** and **./COHORTNAME_output_binary**. You can use several options several options for uploading, like **lftp** or **sftp** 
+
+```{r,eval = FALSE}
+#start lftp
+
+lftp
+ 
+# connect with your guest account:
+
+lftp :~> open -u [your_guest_accountname],none -p 22 sftp://cher-ami.hpc.rug.nl
+
+# create remote directory named as your cohort, say, in this case it will be Rotterdam 
+
+lftp :~> mkdir Rotterdam
+
+# go to this directory
+
+lftp :~> cd Rotterdam
+
+# copy your output for quantitative trait analysis, assuming it's named as Rotterdam_output
+
+lftp :~> mirror -R Rotterdam_output
+
+# copy your output for binary trait analysis, assuming it's named as Rotterdam_output_binary
+
+lftp :~> mirror -R Rotterdam_output_binary
+
+# exit from remote server
+
+lftp :~> exit
+```
+
+
+That's all, folks!
 
 
 # Additions
