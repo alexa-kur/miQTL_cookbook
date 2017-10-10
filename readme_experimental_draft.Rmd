@@ -15,9 +15,9 @@ This is the cookbook for performing the GWAS analysis of microbial abundance bas
 
 1. [Processing of 16S data](#chapter-1-16s-data-processing)
 2. [Processing of SNP microarray data](#chapter-2-genotype-imputation)
-3. [Performing the association study benchmark](#chapter3-perform-genome-wide-association-study-benchmark)
-4. [Performing the association study for all taxa](#chapter4-perform-genome-wide-association-study-for-all-taxa)
-5. [Acquire account and upload data](#chapter4-acquire-guest-account-and-upload-data) 
+3. [Performing the association study benchmark](#chapter-3-perform-genome-wide-association-study-benchmark)
+4. [Performing the association study for all taxa](#chapter-4-perform-genome-wide-association-study-for-all-taxa)
+5. [Acquire account and upload data](#chapter5-acquire-guest-account-and-upload-data) 
 6. Making the meta-analysis
 
 Steps from 1 to 3 would be performed in-house by every participating group. Step 4 will be performed in UMCG (Groningen). Mostly, you can just copy the code strings from this cookbook and run them, but sometimes it's not the case (yet, but it will be after beta-testing).
@@ -138,7 +138,7 @@ Rscript step1.4_filter_and_transform.R taxonomy_table.txt tax_filtered_logTrans.
 To simplify the analysis, we should have genotypes harmonized between cohorts. We propose to use one imputation server: [Michigan Imputation Server](https://imputationserver.sph.umich.edu/index.html). 
 Carolina Medina-Gomez was very pleased to prepase very nice instruction for imputation, please find here, in the file called [Imputation_protocol_description.docx](Imputation_protocol_description.docx). In addition to that, you can also check the documentation on HRC [server help page](https://imputationserver.sph.umich.edu/index.html#!pages/help).
 
-# Chapter3. Pefrorm Genome-Wide Association Study Benchmark
+# Chapter 3. Perform Genome-Wide Association Study Benchmark
 
 Compare to the whole microbiome analysis prepared on the next step, here we'll only focus on 10 most abundant bacterial genera. This will allow us to explore cohort-specific stange
 
@@ -305,7 +305,7 @@ In addition to playing with these results we want you to upload it to UMCG serve
 
 
 
-# Chapter4. Pefrorm Genome-Wide Association Study for all taxa
+# Chapter 4. Perform Genome-Wide Association Study for all taxa
 
 ## Step 4.4. Rename dataset in template
 
