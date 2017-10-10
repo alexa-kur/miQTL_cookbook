@@ -307,67 +307,68 @@ In addition to playing with these results we want you to upload it to UMCG serve
 
 # Chapter 4. Perform Genome-Wide Association Study for all taxa
 
-## Step 4.4. Rename dataset in template
+Please provide us the results of benchmark first!
+<!-- ## Step 4.4. Rename dataset in template -->
 
-To run overall quantitative analysis for all bacteria, we still need to generate XML template, see [step 3.4](#step-34-rename-dataset-in-templates). The [template XML for all bacteria ](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template.xml) can be downloaded from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). 
+<!-- To run overall quantitative analysis for all bacteria, we still need to generate XML template, see [step 3.4](#step-34-rename-dataset-in-templates). The [template XML for all bacteria ](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template.xml) can be downloaded from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software).  -->
 
-If you used standard file and folder names mentioned in this cookbook, the only change you need to do in template is the dataset name. that's easy one-step procedure. For example, assuming your cohort is named *MBRUN*, run
+<!-- If you used standard file and folder names mentioned in this cookbook, the only change you need to do in template is the dataset name. that's easy one-step procedure. For example, assuming your cohort is named *MBRUN*, run -->
 
-```
-cat miQTL_cookbook/software/template.xml|perl -pe 's/COHORTNAME/MBRUN/' > ./settings.xml
-```
+<!-- ``` -->
+<!-- cat miQTL_cookbook/software/template.xml|perl -pe 's/COHORTNAME/MBRUN/' > ./settings.xml -->
+<!-- ``` -->
 
-The file **settings.xml** will be used on the next stage.
+<!-- The file **settings.xml** will be used on the next stage. -->
 
-## Step 4.4B. Rename dataset in template - binary analysis
+<!-- ## Step 4.4B. Rename dataset in template - binary analysis -->
 
-If you used standard file and folder names mentioned in this cookbook, the only change you need to do in template is the dataset name. that's easy one-step procedure. For example, assuming your cohort is named *MBRUN*, run
+<!-- If you used standard file and folder names mentioned in this cookbook, the only change you need to do in template is the dataset name. that's easy one-step procedure. For example, assuming your cohort is named *MBRUN*, run -->
 
-```
-cat miQTL_cookbook/software/template_binary.xml|perl -pe 's/COHORTNAME/MBRUN/' > ./settings_binary.xml
-```
+<!-- ``` -->
+<!-- cat miQTL_cookbook/software/template_binary.xml|perl -pe 's/COHORTNAME/MBRUN/' > ./settings_binary.xml -->
+<!-- ``` -->
 
-The file **settings_binary.xml** will be used on on the next stage.
+<!-- The file **settings_binary.xml** will be used on on the next stage. -->
 
 
-## Step 4.5. Run miQTL mapping
+<!-- ## Step 4.5. Run miQTL mapping -->
 
-First you need to unzip eQTL pipeline binaries: [eqtl-mapping-pipeline-1.4nZ-dist.zip](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/eqtl-mapping-pipeline-1.4nZ-dist.zip) from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). Simply run:
+<!-- First you need to unzip eQTL pipeline binaries: [eqtl-mapping-pipeline-1.4nZ-dist.zip](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/eqtl-mapping-pipeline-1.4nZ-dist.zip) from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). Simply run: -->
 
-```
-unzip eqtl-mapping-pipeline-1.4nZ-dist.zip
-```
-These are the files that should be located in project folder:
+<!-- ``` -->
+<!-- unzip eqtl-mapping-pipeline-1.4nZ-dist.zip -->
+<!-- ``` -->
+<!-- These are the files that should be located in project folder: -->
 
-1. **tax_corrected.txt**  // The microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See [Chapter 1](#chapter-1-16s-data-processing) and [Step 3.1.](#step-31-correct-microbiome-for-covariates-and-create-annotation-file)
-2. **tax_corrected.txt.annot** //Annotation file for taxonomies. See [Step 3.1.](#step-31-correct-microbiome-for-covariates-and-create-annotation-file)
-3. **genotypes_trityper** // The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 3.2](#step-32-process-hrc-vcf-files)
-4. **coupling_file.txt** // Coupling file. See [Step 3.3.](#step-33-prepare-coupling-file)
-5. **eqtl-mapping-pipeline-1.4nZ** // The folder with eQTL pipeline binaries
-6. **settings.xml** // XML settings file. See [Step 3.4.](#step-34-rename-dataset-in-template)
+<!-- 1. **tax_corrected.txt**  // The microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See [Chapter 1](#chapter-1-16s-data-processing) and [Step 3.1.](#step-31-correct-microbiome-for-covariates-and-create-annotation-file) -->
+<!-- 2. **tax_corrected.txt.annot** //Annotation file for taxonomies. See [Step 3.1.](#step-31-correct-microbiome-for-covariates-and-create-annotation-file) -->
+<!-- 3. **genotypes_trityper** // The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 3.2](#step-32-process-hrc-vcf-files) -->
+<!-- 4. **coupling_file.txt** // Coupling file. See [Step 3.3.](#step-33-prepare-coupling-file) -->
+<!-- 5. **eqtl-mapping-pipeline-1.4nZ** // The folder with eQTL pipeline binaries -->
+<!-- 6. **settings.xml** // XML settings file. See [Step 3.4.](#step-34-rename-dataset-in-template) -->
 
-If you have all of these ready, jun run this from a *screen* session:
+<!-- If you have all of these ready, jun run this from a *screen* session: -->
 
-```
-java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings.xml 
-```
-## Step 4.5B. Run miQTL mapping -binary
+<!-- ``` -->
+<!-- java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings.xml  -->
+<!-- ``` -->
+<!-- ## Step 4.5B. Run miQTL mapping -binary -->
 
-Necessary files:
-1. **tax_corrected_binary.txt**  // The microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See [Chapter 1](#chapter-1-16s-data-processing) and [Step 3.1.](#step-31b-correct-microbiome-for-covariates-for-binary-analysis)
-2. **tax_corrected_binary.txt.annot** //Annotation file for taxonomies. See [Step 3.1.](#step-31b-correct-microbiome-for-covariates-for-binary-analysis)
-3. **genotypes_trityper** // The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 3.2](#step-32-process-hrc-vcf-files)
-4. **coupling_file.txt** // Coupling file. See [Step 3.3.](#step-33-prepare-coupling-file)
-5. **eqtl-mapping-pipeline-1.4nZ** // The folder with eQTL pipeline binaries
-6. **settings_binary.xml** // XML settings file. See [Step 3.4.](#step-34b-rename-dataset-in-template-binary-analysis)
+<!-- Necessary files: -->
+<!-- 1. **tax_corrected_binary.txt**  // The microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See [Chapter 1](#chapter-1-16s-data-processing) and [Step 3.1.](#step-31b-correct-microbiome-for-covariates-for-binary-analysis) -->
+<!-- 2. **tax_corrected_binary.txt.annot** //Annotation file for taxonomies. See [Step 3.1.](#step-31b-correct-microbiome-for-covariates-for-binary-analysis) -->
+<!-- 3. **genotypes_trityper** // The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 3.2](#step-32-process-hrc-vcf-files) -->
+<!-- 4. **coupling_file.txt** // Coupling file. See [Step 3.3.](#step-33-prepare-coupling-file) -->
+<!-- 5. **eqtl-mapping-pipeline-1.4nZ** // The folder with eQTL pipeline binaries -->
+<!-- 6. **settings_binary.xml** // XML settings file. See [Step 3.4.](#step-34b-rename-dataset-in-template-binary-analysis) -->
 
-If you have all of these ready, jun run this from a *screen* session:
+<!-- If you have all of these ready, jun run this from a *screen* session: -->
 
-```
-java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings_binary.xml 
-```
+<!-- ``` -->
+<!-- java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings_binary.xml  -->
+<!-- ``` -->
 
-You are done! Now you need to upload the results to UMCG server. 
+<!-- You are done! Now you need to upload the results to UMCG server.  -->
 
 # Chapter 5. Acquire guest account and upload data 
 
