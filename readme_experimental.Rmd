@@ -327,7 +327,7 @@ java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mappi
 
 You are done! Now you need to upload the results to UMCG server. 
 
-#Step 4. Acquire guest account and upload data 
+# Step 4. Acquire guest account and upload data 
 
 1. Generate private and public key pair as documented here:
 [http://wiki.gcc.rug.nl/wiki/RequestAccount]
@@ -383,7 +383,9 @@ lftp :~> exit
 ```
 
 
-That's all, folks!
+Now it's our work to run meta-analysis.
+
+
 
 
 # Additions
