@@ -1,7 +1,7 @@
 options = commandArgs(trailingOnly = TRUE)
 input_taxonomy = options[1]
 input_annotation = paste0(options[1],".annot")
-output_folder = options[2]
+output_folder = "taxa_benchmark_selection"
 taxonomy_table = read.table(input_taxonomy,header=T,as.is = T,sep="\t")
 colnames(taxonomy_table)[1] = "-"
 annot_table = read.table(input_annotation,header=T,as.is = T)
