@@ -2,7 +2,7 @@ options = commandArgs(trailingOnly = TRUE)
 input_taxonomy = options[1]
 input_annotation = paste0(options[1],".annot")
 output_folder = options[2]
-taxonomy_table = read.table(input_taxonomy,header=T,sep="\t")
+taxonomy_table = read.table(input_taxonomy,header=T,as.is = T,sep="\t")
 colnames(taxonomy_table)[1] = "-"
 annot_table = read.table(input_annotation,header=T,as.is = T)
 
@@ -21,7 +21,7 @@ taxa = c("genus.Bacteroides.id.918",
 dir.create(output_folder)
 
 for (i in taxa){
-	tax = taxonomy_table[i,]
+	tax = taxonomy_table[taxonomy_table[,1]==i,]
 	annot = annot_table[annot_table[,2] == i,]
 	write.table(tax,file = paste0(output_folder,"/",i,".txt"),sep="\t",quote=F)
 	write.table(annot,file = paste0(output_folder,"/",i,".txt.annot"),sep="\t",quote=F)
