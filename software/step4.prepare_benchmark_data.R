@@ -22,7 +22,7 @@ dir.create(output_folder)
 
 for (i in taxa){
 	tax = taxonomy_table[i,]
-	annot = annot_table[annot_table[,1] == i,]
+	annot = annot_table[annot_table[,2] == i,]
 	write.table(tax,file = paste0(output_folder,"/",i,".txt",sep="\t",quote=F)
 	write.table(annot,file = paste0(output_folder,"/",i,".txt.annot",sep="\t",quote=F)
 }
