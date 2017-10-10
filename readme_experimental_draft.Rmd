@@ -17,7 +17,7 @@ This is the cookbook for performing the GWAS analysis of microbial abundance bas
 2. [Processing of SNP microarray data](#chapter-2-genotype-imputation)
 3. [Performing the association study benchmark](#chapter-3-perform-genome-wide-association-study-benchmark)
 4. [Performing the association study for all taxa](#chapter-4-perform-genome-wide-association-study-for-all-taxa)
-5. [Acquire account and upload data](#chapter5-acquire-guest-account-and-upload-data) 
+5. [Acquire account and upload data](#chapter-5-acquire-guest-account-and-upload-data) 
 6. Making the meta-analysis
 
 Steps from 1 to 3 would be performed in-house by every participating group. Step 4 will be performed in UMCG (Groningen). Mostly, you can just copy the code strings from this cookbook and run them, but sometimes it's not the case (yet, but it will be after beta-testing).
