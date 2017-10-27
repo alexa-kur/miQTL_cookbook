@@ -248,7 +248,7 @@ Next command will perform the following steps:
 
 To apply these procedures, run:
 ```
-java -Xmx40G -jar ./GenotypeHarmonizer-1.4.20-SNAPSHOT/GenotypeHarmonizer.jar -i ./autosomal_genotypes -I VCFFOLDER -o genotypes_trityper -O TRITYPER -mf 0.01 -ip 0.4 -asf  
+java -Xmx40G -jar ./GenotypeHarmonizer-1.4.20-SNAPSHOT/GenotypeHarmonizer.jar -i ./autosomal_genotypes -I VCFFOLDER -o genotypes_trityper -O TRITYPER -mf 0.01 -ip 0.4 -mrf 0.8 -asf  
 ```
 
 The folder **genotypes_trityper** will be generated.

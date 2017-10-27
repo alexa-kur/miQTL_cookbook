@@ -158,6 +158,8 @@ All necessary scripts are provided in [software](https://github.com/alexa-kur/mi
 
 ## Step 3.1. Correct microbiome for covariates and create annotation file
 
+**Important: Please, for initial run perform the correction only for age and gender!**
+
 First, you need to generate filtered and log-transformed taxonomy table *tax_filtered_logTrans.txt*. Please check [Step 1.4](#step-14-abundance-filtering-and-transformation) to explore how to do it. Now you need to create the flat text table with phenotypes you want to correct for. It should be tab-delimited flat text file which suits for loading in R. Phenotypes can be integer or numeric variables or factors. The first column should contain Sample ID's. The typical example is provided below: 
 
 ```
