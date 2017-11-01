@@ -12,13 +12,13 @@ if (exists("coupling_file")&file.exists(coupling_file)){
   has_both = (coupling[,1] %in% rownames(phenos)) & (coupling[,2] %in% rownames(tax))
   coupling= coupling[has_both,]
   tax = tax[coupling[,2],]
-  phenos = phenos[coupling[,1],]
+  phenos = phenos[coupling[,1],,drop = FALSE]
   rownames(tax) = rownames(phenos)
   tax = tax[rownames(tax)[grep("[.][0-9]+$",rownames(tax),invert=T)],]
-  phenos = phenos[rownames(tax),]
+  phenos = phenos[rownames(tax),,drop = FALSE]
 } else {
   tax = tax[intersect(rownames(tax),rownames(phenos)),]
-  phenos = phenos[rownames(tax),]
+  phenos = phenos[rownames(tax),,drop = FALSE]
 }
 
 tax[!is.na(tax)] = 1
@@ -28,6 +28,10 @@ tax = tax[,colSums(tax == 0)>0.1 * nrow(tax)]
 corrected_data = apply(tax,2,function(x){
   x.subset = x[!is.na(x)]
   phenos.subset = phenos
+  phenos.subset.matrix = data.matrix(phenos.subset)
+  if(ncol(phenos.subset)==ncol(phenos.subset.matrix)){
+    phenos.subset = phenos.subset[,apply(phenos.subset.matrix,2,sd) !=0,drop = FALSE]
+  }
   x.resid = resid(glm(x.subset ~ .,data = phenos.subset,family = "binomial"))
   x[!is.na(x)] = x.resid+100
   x[is.na(x)] = 0
