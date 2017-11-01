@@ -307,7 +307,30 @@ Repeat this procedure for all 10 files. You will see your output inf the folder 
 
 In addition to playing with these results we want you to upload it to UMCG servers. Please go to [Chapter 5](#Chapter-5-acquire-guest-account-and-upload-data) to find how to get access and upload the data. Please note that we need all the files within output folder.
 
+## Step 3.5. PCoA plot on genera level
 
+We need to explore what kind of technical covarites significantly affect your microbiome composition. To do so, we want to perform PCoA analysis and PERMANOVA on technical covariates as traits. If your cohort was standardized and assumed no to contain batch effects, please use phenotype file that contains covariates you are going to correct for (by default, it's age and gender)
+
+Please first check that you have *vegan* package is installed in your R. To do so, open your R interactive shell and run:
+
+```
+bash> R
+R> install.packages("vegan")
+R> quit
+```
+
+Next, run simple script. The usage is quite similar to step **Step3.1**. I may or may not provide additional linkage file. The format of phenotype and linkage file should be similar to **Step3.1**
+
+```
+#If your sample ID's are different between microbial and covariate tables
+Rscript step3.5_pcoa.R taxonomy_table.txt technical_covariates.txt coupling_file.txt
+#If your sample ID's are the same
+Rscript step3.5_pcoa.R taxonomy_table.txt technical_covariates.txt
+```
+
+This script will generate 2 files: **10PCS.txt** and **adonis_covariates.txt**. Please send it Alex Kur *alexa.kur@gmail.com*
+
+It will generate matrix of first 10 principal components called **PCo.txt**. Please send it to Alex Kur *alexa.kur@gmail.com* 
 
 # Chapter 4. Perform Genome-Wide Association Study for all taxa
 
