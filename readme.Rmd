@@ -330,8 +330,6 @@ Rscript step3.5_pcoa.R taxonomy_table.txt technical_covariates.txt
 
 This script will generate 2 files: **10PCS.txt** and **adonis_covariates.txt**. Please send it Alex Kur *alexa.kur@gmail.com*
 
-It will generate matrix of first 10 principal components called **PCo.txt**. Please send it to Alex Kur *alexa.kur@gmail.com* 
-
 # Chapter 4. Perform Genome-Wide Association Study for all taxa
 
 Please provide us the results of benchmarks first!
