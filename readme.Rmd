@@ -244,7 +244,7 @@ cp HRC_VCF/chr[0-9]* autosomal_genotypes
 ```
 
 Next command will perform the following steps:
-1. MAF filtering (*-mf* flag, we decided to use 0.01 threshold)
+1. MAF filtering (*-mf* flag, we decided to use 0.05 threshold)
 2. Imputation QC filtering (*-ip* flag, 0.4)
 3. Remove ambigous SNPs (*-asf* flag)
 4. Translate genotypes from VCF to TRITYPER format
