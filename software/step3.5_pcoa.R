@@ -11,7 +11,7 @@ pco1 = capscale(data ~ 0,distance = "bray")
 pcs = pco1$CA$u[,1:10]
 rownames(pcs) = paste0("Sample",1:nrow(pcs))
 write.table(pcs, file = "10PCS.txt",sep="\t")
-phenos = read.delim(phenos_input, )
+phenos = read.delim(phenos_input, header=T,row.names=1,sep="\t")
 
 if (exists("coupling_file")&file.exists(coupling_file)){
   coupling = read.table(coupling_file,as.is = T)
