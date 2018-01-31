@@ -1,7 +1,7 @@
 ---
 title: "CHARGE miQTL pipeline"
 author: "Alexander Kurilshikov"
-date: "Sep 10, 2017"
+date: "Jan 31, 2018"
 output: html_document
 ---
 
@@ -332,12 +332,12 @@ This script will generate 2 files: **10PCS.txt** and **adonis_covariates.txt**. 
 
 # Chapter 4. Perform Genome-Wide Association Study for all taxa
 
-This Chapter desdcribes the procedure of running GWAS on microbiome traits. In general, the procedure is very similar to benchmark run descibed in [Chapter 3](#chapter-3-perform-genome-wide-association-study-benchmark), however, it contains many differences, in both steps performed and cutoffs used. Due to some step and cutoff differrences, you should not use any files obtained in Benchmark Run. 
+This Chapter describes the procedure of running GWAS on the whole list of microbiome traits. In general, the procedure is very similar to benchmark run descibed in [Chapter 3](#chapter-3-perform-genome-wide-association-study-benchmark). However, it contains many changes compare to Benchmark Run, so we recommend to start from the output of [Chapter 1](#chapter-1-16s-data-processing) and [Chapter 2](#chapter-2-genotype-imputation), and **avoid** using any data generated in [Benchmark run, Chapter 3](#chapter-3-perform-genome-wide-association-study-benchmark). 
 
-To Chapter 4, please check that you have all necessary files and folders. 
+To go through Chapter 4, please check that you have all necessary files and folders. 
 
 1. **tax_filtered_logTrans.txt**. This file contains transformed, abundnce filtered bacterial taxa
-2. **phenotypes.txt** file, the flat text tab-delimited file that contains infromation on covariates (see (description below)[#-tep-41-correct-microbiome-for-covariates-create-annotation-files]). The list of necesary covariates includes:
+2. **phenotypes.txt** file, the flat text tab-delimited file that contains infromation on covariates (see [description below](#step-41-correct-microbiome-for-covariates-create-annotation-files)). The list of necesary covariates includes:
 - **Sex**
 - **Age**
 - **3 first genetic PCs** for monoethnic cohort, OR **10 first genetic PCs** for multiethnic cohort
