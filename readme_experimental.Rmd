@@ -332,16 +332,16 @@ This script will generate 2 files: **10PCS.txt** and **adonis_covariates.txt**. 
 
 # Chapter 4. Perform Genome-Wide Association Study for all taxa
 
-This Chapter describes the procedure of running GWAS on the whole list of microbiome traits. In general, the procedure is very similar to benchmark run descibed in [Chapter 3](#chapter-3-perform-genome-wide-association-study-benchmark). However, it contains many changes compare to Benchmark Run, so we recommend to start from the output of [Chapter 1](#chapter-1-16s-data-processing) and [Chapter 2](#chapter-2-genotype-imputation), and **avoid** using any data generated in [Benchmark run, Chapter 3](#chapter-3-perform-genome-wide-association-study-benchmark). 
+This Chapter describes the procedure of running GWAS on the whole list of microbiome traits. In general, the procedure is very similar to benchmark run described in [Chapter 3](#chapter-3-perform-genome-wide-association-study-benchmark). However, it contains many changes compared to Benchmark Run, so we recommend to start from the output of [Chapter 1](#chapter-1-16s-data-processing) and [Chapter 2](#chapter-2-genotype-imputation), and **avoid** using any data generated in [Benchmark run, Chapter 3](#chapter-3-perform-genome-wide-association-study-benchmark). 
 
 To go through Chapter 4, please check that you have all necessary files and folders. 
 
-1. **tax_filtered_logTrans.txt**. This file contains transformed, abundnce filtered bacterial taxa
-2. **phenotypes.txt** file, the flat text tab-delimited file that contains infromation on covariates (see [description below](#step-41-correct-microbiome-for-covariates-create-annotation-files)). The list of necesary covariates includes:
-  - **Sex**
-  - **Age**
-  - **3 first genetic PCs** for monoethnic cohort, OR **10 first genetic PCs** for multiethnic cohort
-  - **Technical microbiome covariates**, if any of these available, such as stool storage/delivery time, sequencing batches, etc. 
+1. **tax_filtered_logTrans.txt**. This file contains transformed, abundance-filtered bacterial taxa
+2. **phenotypes.txt** file, the flat text tab-delimited file that contains information on covariates (see [description below](#step-41-correct-microbiome-for-covariates-create-annotation-files)). The list of necessary covariates includes:
+  * **Sex**
+  * **Age**
+  * **3 first genetic PCs** for monoethnic cohort, OR **10 first genetic PCs** for multiethnic cohort
+  * **Technical microbiome covariates**, if any of these available, such as stool storage/delivery time, sequencing batches, etc. 
 3. **HRC imputed genotypes** in default HRC output format, that comprises per-chromosome VCF and INFO files. See more detailed description below. 
 
 This chapter comprises the following steps:
@@ -350,7 +350,7 @@ This chapter comprises the following steps:
 
 The initial files for this step are  *tax_filtered_logTrans.txt* and **phenotypes.txt** . If your phenotype samples IDs and microbiome sample IDs are different you can simply add **linkage file**. 
 
-This is an example of correct **phenotypes.txt** file. It should be *flat text*, *tab delimited*, with *header* and *sample names in rows*. If you use categorical variables (such as batches), please use *character strings* to encode them instead of *integers*. For example, if you will encode Batch1, Batch2 and Batch3 as 1, 2 and 3, the script will recognize it as numeric variable and will does inappropriate procedure for correction.   
+This is an example of correct **phenotypes.txt** file. It should be *flat text*, *tab delimited*, with *header* and *sample names in rows*. If you use categorical variables (such as batches), please use *character strings* to encode them instead of *integers*. For example, if you will encode Batch1, Batch2 and Batch3 as 1, 2 and 3, the script will recognize it as numeric variable and will do the correction wrong.   
 
 ```
 SampleID  Sex   Age   PC1   PC2   PC3   Batch
@@ -391,10 +391,10 @@ Rscript step4.1_covariate_correction.R tax_filtered_logTrans.txt phenotypes.txt 
 
 There will be 4 files generated:
 
-1.**tax_numeric.txt**
-2.**tax_numeric.txt.annot**
-3.**tax_binary.txt**
-4.**tax_binary.txt.annot**
+1. **tax_numeric.txt**
+2. **tax_numeric.txt.annot**
+3. **tax_binary.txt**
+4. **tax_binary.txt.annot**
 
 
 
