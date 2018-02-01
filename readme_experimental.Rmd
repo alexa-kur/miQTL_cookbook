@@ -383,10 +383,10 @@ Now run (assuming your phenotype file is called **phenotypes.txt**)
 
 ```
 #If your sample ID's are matched
-Rscript step4.1_covariate_correction.R tax_filtered_logTrans.txt phenotypes.txt tax_corrected.txt
+Rscript step4.1_covariate_correction.R tax_filtered_logTrans.txt phenotypes.txt
 
 #If your sample ID's are different between phenotypes and 16s libraries
-Rscript step4.1_covariate_correction.R tax_filtered_logTrans.txt phenotypes.txt tax_corrected.txt linkage.txt
+Rscript step4.1_covariate_correction.R tax_filtered_logTrans.txt phenotypes.txt linkage.txt
 ```
 
 There will be 4 files generated:
@@ -396,7 +396,7 @@ There will be 4 files generated:
 3. **tax_binary.txt**
 4. **tax_binary.txt.annot**
 
-
+**Important note: the samples with NA values in one or more phenotypes will be excluded from the output. If you still want to include them, please impute missing values by median or median**
 
 ## Step 4.2. Filter genotypes
 

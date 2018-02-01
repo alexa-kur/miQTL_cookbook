@@ -28,10 +28,10 @@
 		<output>
 			<binaryoutput>true</binaryoutput>
   			<textoutput>true</textoutput>
-			<outputdirectory>./COHORTNAME_output</outputdirectory>
+			<outputdirectory>./COHORTNAME_full_quant</outputdirectory>
 			<outputplotthreshold>0.0</outputplotthreshold>
-			<outputplotdirectory>./COHORTNAME_output/plots</outputplotdirectory>
-			<maxnreqtlresults>10000000</maxnreqtlresults>
+			<outputplotdirectory>./COHORTNAME_full_quant/plots</outputplotdirectory>
+			<maxnreqtlresults>1000000</maxnreqtlresults>
 			<generatesnpsummarystatistics>true</generatesnpsummarystatistics>
 			<generateeqtlpvaluetable>true</generateeqtlpvaluetable>
 		</output>
@@ -48,10 +48,10 @@
 	<datasets>
 		<dataset>
 			<name>COHORTNAME</name>
-			<location>./genotypes_trityper</location>
+			<location>./trityper_chapter4</location>
 			<genometoexpressioncoupling>./coupling_file.txt</genometoexpressioncoupling>
-			<expressiondata>./tax_corrected.txt</expressiondata>
-			<probeannotation>./tax_corrected.txt.annot</probeannotation>
+			<expressiondata>./tax_numeric.txt</expressiondata>
+			<probeannotation>./tax_numeric.txt.annot</probeannotation>
 			<expressionplatform>RDP</expressionplatform>
 			<quantilenormalize>false</quantilenormalize>
 			<logtranform>false</logtranform>
