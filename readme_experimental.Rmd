@@ -487,8 +487,8 @@ These files that should be located in your project folder:
 5. **trityper_chapter4** // The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 4.2](#step-42-filter-genotypes)
 6. **coupling_file.txt** // Coupling file. See [Step 4.3](#step-43-prepare-coupling-file)
 5. **eqtl-mapping-pipeline-1.4nZ** // The folder with eQTL pipeline binaries
-6. **settings.xml** // XML settings file for quantitative analysis. See [Step 4.4.](#step-44-generate-xml-setting-files-for-quantitative-and-binary-analyses)
-7. **settings_binary.xml** // XML settings file for binary analysis. See [Step 4.4.](#step-44-generate-xml-setting-files-for-quantitative-and-binary-analyses)
+6. **settings.xml** // XML settings file for quantitative analysis. See [Step 4.4](#step-44-generate-xml-setting-files-for-quantitative-and-binary-analyses)
+7. **settings_binary.xml** // XML settings file for binary analysis. See [Step 4.4](#step-44-generate-xml-setting-files-for-quantitative-and-binary-analyses)
 
 If you have all of these ready, just run this commands from a *screen* session:
 
