@@ -49,7 +49,7 @@ annot = data.frame(platform = "RDP",
 colnames(annot)[2] = "HT12v3-ArrayAddress"
 
 #generate presence/absence tables
-binary_data = apply(m,2,function(x){as.integer(!is.na(x))})
+binary_data = apply(tax,2,function(x){as.integer(!is.na(x))})
 dimnames(binary_data) = dimnames(tax)
 binary_data = binary_data[,colSums(binary_data)>0.1*nrow(binary_data)&colSums(binary_data)<0.9*nrow(binary_data)]
 binary_data = as.data.frame(t(binary_data))+100
