@@ -396,7 +396,7 @@ There will be 4 files generated:
 3. **tax_binary.txt**
 4. **tax_binary.txt.annot**
 
-**Important note: the samples with NA values in one or more phenotypes will be excluded from the output. If you still want to include them, please impute missing values by median or median**
+**Important note: the samples with NA values in one or more phenotypes will be excluded from the output. If you still want to include them, please impute missing values by median or mean**
 
 ## Step 4.2. Filter genotypes
 
