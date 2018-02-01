@@ -29,8 +29,9 @@ Steps from 1 to 3 would be performed in-house by every participating group. Step
         + Abundance cutoff: presence in 10% of the samples
         + Log (base **e**) trasformation on the counts
     + SNPs
-        + MAF > 1%
+        + MAF > 5%
         + Imputation quality > 0.4
+        + SNP call rate > 0.95
         + Genotypes represented in dosages 
 2. Models used
     + Taxonomy absence/presence as binary trait: logistic regression with Chisquared-based p-value estimation
@@ -334,7 +335,7 @@ This script will generate 2 files: **10PCS.txt** and **adonis_covariates.txt**. 
 
 This Chapter describes the procedure of running GWAS on the whole list of microbiome traits. In general, the procedure is very similar to benchmark run described in [Chapter 3](#chapter-3-perform-genome-wide-association-study-benchmark). However, it contains many changes compared to Benchmark Run, so we recommend to start from the output of [Chapter 1](#chapter-1-16s-data-processing) and [Chapter 2](#chapter-2-genotype-imputation), and **avoid** using any data generated in [Benchmark run, Chapter 3](#chapter-3-perform-genome-wide-association-study-benchmark). 
 
-To go through Chapter 4, please check that you have all necessary files and folders. 
+To go through Chapter 4, please check that you have **all necessary files and folders**. 
 
 1. **tax_filtered_logTrans.txt**. This file contains transformed, abundance-filtered bacterial taxa
 2. **phenotypes.txt** file, the flat text tab-delimited file that contains information on covariates (see [description below](#step-41-correct-microbiome-for-covariates-create-annotation-files)). The list of necessary covariates includes:
@@ -342,7 +343,13 @@ To go through Chapter 4, please check that you have all necessary files and fold
    * **Age**
    * **3 first genetic PCs** for monoethnic cohort, OR **10 first genetic PCs** for multiethnic cohort
    * **Technical microbiome covariates**, if any of these available, such as stool storage/delivery time, sequencing batches, etc. 
+
 3. **HRC imputed genotypes** in default HRC output format, that comprises per-chromosome VCF and INFO files. See more detailed description below. 
+
+It's also important to remove some samples. Please [Step 4.3](#step-43-prepare-coupling-file) to get the instructions: 
+* **Remove ethnic outliers**, if you have any in your monoethnic cohort
+* **Keep only one individual from each twin pair**, if you have cohort of twins
+
 
 This chapter comprises the following steps:
 
@@ -458,6 +465,8 @@ GenotypeSample1  StoolSample1
 GenotypeSample2  StoolSample2
 ```
 
+**If you need to exclude some samples from analysis**, the easiest way to do so is just to remove corresponding lines from this **coupling file**.
+
 ## Step 4.4. Generate XML setting files for quantitative and binary analyses
 
 To run whole-genome mbQTL mapping for all bacterial traits, we need to generate two XML setting files, one for quantitative analysis and one for bacterial presence/absence analysis. The [template XML for quantitative analysis](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template.xml) and [template XML for binary analysis](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template_binary.xml) can be downloaded from [software folder of this Cookbook](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software).
@@ -485,7 +494,7 @@ These files that should be located in your project folder:
 3. **tax_binary.txt**  // Presence/absence microbiome file. See [Step 4.1](#step-41-correct-microbiome-for-covariate-create-annotation-files)
 4. **tax_binary.txt.annot** //Presence/absence annotation file. See [Step 4.1](#step-41-correct-microbiome-for-covariate-create-annotation-files)
 5. **trityper_chapter4** // The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 4.2](#step-42-filter-genotypes)
-6. **coupling_file.txt** // Coupling file. See [Step 4.3](#step-43-prepare-coupling-file)
+6. **coupling_file.txt** // Coupling file thanks links microbiome IDs to genotype IDs. See [Step 4.3](#step-43-prepare-coupling-file)
 5. **eqtl-mapping-pipeline-1.4nZ** // The folder with eQTL pipeline binaries
 6. **settings.xml** // XML settings file for quantitative analysis. See [Step 4.4](#step-44-generate-xml-setting-files-for-quantitative-and-binary-analyses)
 7. **settings_binary.xml** // XML settings file for binary analysis. See [Step 4.4](#step-44-generate-xml-setting-files-for-quantitative-and-binary-analyses)
@@ -561,7 +570,7 @@ lftp :~> exit
 ```
 
 
-Now it's our work to run meta-analysis.
+Now it's our job to run meta-analysis.
 
 
 
