@@ -1,5 +1,5 @@
 ---
-title: "CHARGE miQTL pipeline"
+title: "MiBioGen miQTL pipeline"
 author: "Alexander Kurilshikov"
 date: "Jan 31, 2018"
 output: html_document
@@ -351,7 +351,12 @@ It's also important to remove some samples. Please [Step 4.3](#step-43-prepare-c
 * **Keep only one individual from each twin pair**, if you have cohort of twins
 
 
-This chapter comprises the following steps:
+This chapter comprises the following steps
+1. [Step 4.1. Correct microbiome for covariates, create annotation files](#step-41-correct-microbiome-for-covariate-create-annotation-files)
+2. [Step 4.2. Filter genotypes](#step-42-filter-genotypes)
+3. [Step 4.3. Prepare coupling file](#step-43-prepare-coupling-file)
+4. [Step 4.4. Generate XML setting files for analyses](#step-44-generate-xml-setting-files-for-quantitative-and-binary-analyses)
+5. [Step 4.5. Run full miQTL mapping](#step-45-run-full-miqtl-mapping)
 
 ## Step 4.1. Correct microbiome for covariates, create annotation files
 
@@ -469,7 +474,7 @@ GenotypeSample2  StoolSample2
 
 ## Step 4.4. Generate XML setting files for quantitative and binary analyses
 
-To run whole-genome mbQTL mapping for all bacterial traits, we need to generate two XML setting files, one for quantitative analysis and one for bacterial presence/absence analysis. The [template XML for quantitative analysis](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template.xml) and [template XML for binary analysis](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template_binary.xml) can be downloaded from [software folder of this Cookbook](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software).
+To run whole-genome miQTL mapping for all bacterial traits, we need to generate two XML setting files, one for quantitative analysis and one for bacterial presence/absence analysis. The [template XML for quantitative analysis](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template.xml) and [template XML for binary analysis](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template_binary.xml) can be downloaded from [software folder of this Cookbook](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software).
 
 If you used standard file and folder names mentioned in this cookbook, the only change you need to do in templates is the dataset name. That's easy one-step procedure for each template. For example, assuming your cohort is named *MBRUN*, run
 
@@ -480,7 +485,7 @@ cat miQTL_cookbook/software/template_binary.xml|perl -pe 's/COHORTNAME/MBRUN/' >
 
 The files **settings.xml** and **settings_binary.xml** will be used on the next stage.
 
-## Step 4.5. Run full mbQTL mapping
+## Step 4.5. Run full miQTL mapping
 
 First, you need to unzip eQTL pipeline binaries: [eqtl-mapping-pipeline-1.4nZ-dist.zip](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/eqtl-mapping-pipeline-1.4nZ-dist.zip) from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). Simply run:
 
