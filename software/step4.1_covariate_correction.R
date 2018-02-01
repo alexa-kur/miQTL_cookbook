@@ -57,8 +57,8 @@ binary_data = data.frame(paste0(rownames(binary_data),".binary"),binary_data)
 
 colnames(binary_data)[1] = "-"
 binary_annot = data.frame(platform = "RDP",
-                                HT12v3.ArrayAddress = rownames(binary_data),
-                                Gene = rownames(binary_data),
+                                HT12v3.ArrayAddress = binary_data[,1],
+                                Gene = binary_data[,1],
                                 Chr = 4,
                                 ChrStart = 1000,
                                 ChrEnd = 1000)
