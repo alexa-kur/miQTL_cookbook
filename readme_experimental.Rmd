@@ -463,7 +463,7 @@ For further information on *GenotypeHarmonizer*, please check its [GitHub](https
 
 **Note: if you have participated in benchmark run, you probably have this file already.**
 
-This file is necessary to run the pipeline. It should contain linkages between genotype and microbiome sample names. It's necessary even if you have the same names (in this case, just make two exact columns). It should be the tab-delimited flat text file with two columns:
+This file is necessary to run the pipeline and should be named **coupling_file.txt**. It should contain linkages between genotype and microbiome sample names. It's necessary even if you have the same names (in this case, just make two exact columns). It should be the tab-delimited flat text file with two columns:
 
 ```
 GenotypeSample1  StoolSample1
