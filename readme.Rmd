@@ -1,7 +1,7 @@
 ---
-title: "CHARGE miQTL pipeline"
+title: "MiBioGen miQTL pipeline"
 author: "Alexander Kurilshikov"
-date: "Sep 10, 2017"
+date: "Jan 31, 2018"
 output: html_document
 ---
 
@@ -29,8 +29,9 @@ Steps from 1 to 3 would be performed in-house by every participating group. Step
         + Abundance cutoff: presence in 10% of the samples
         + Log (base **e**) trasformation on the counts
     + SNPs
-        + MAF > 1%
+        + MAF > 5%
         + Imputation quality > 0.4
+        + SNP call rate > 0.95
         + Genotypes represented in dosages 
 2. Models used
     + Taxonomy absence/presence as binary trait: logistic regression with Chisquared-based p-value estimation
@@ -307,7 +308,7 @@ Repeat this procedure for all 10 files. You will see your output inf the folder 
 
 In addition to playing with these results we want you to upload it to UMCG servers. Please go to [Chapter 5](#Chapter-5-acquire-guest-account-and-upload-data) to find how to get access and upload the data. Please note that we need all the files within output folder.
 
-## Step 3.5. PCoA plot on genera level
+## Step 3.6. PCoA plot on genera level
 
 We need to explore what kind of technical covarites significantly affect your microbiome composition. To do so, we want to perform PCoA analysis and PERMANOVA on technical covariates as traits. If your cohort was standardized and assumed no to contain batch effects, please use phenotype file that contains covariates you are going to correct for (by default, it's age and gender)
 
@@ -332,68 +333,193 @@ This script will generate 2 files: **10PCS.txt** and **adonis_covariates.txt**. 
 
 # Chapter 4. Perform Genome-Wide Association Study for all taxa
 
-Please provide us the results of benchmarks first!
-<!-- ## Step 4.4. Rename dataset in template -->
+This Chapter describes the procedure of running GWAS on the whole list of microbiome traits. In general, the procedure is very similar to benchmark run described in [Chapter 3](#chapter-3-perform-genome-wide-association-study-benchmark). However, it contains many changes compared to Benchmark Run, so we recommend to start from the output of [Chapter 1](#chapter-1-16s-data-processing) and [Chapter 2](#chapter-2-genotype-imputation), and **avoid** using any data generated in [Benchmark run, Chapter 3](#chapter-3-perform-genome-wide-association-study-benchmark). 
 
-<!-- To run overall quantitative analysis for all bacteria, we still need to generate XML template, see [step 3.4](#step-34-rename-dataset-in-templates). The [template XML for all bacteria ](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template.xml) can be downloaded from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software).  -->
+To go through Chapter 4, please check that you have **all necessary files and folders**. 
 
-<!-- If you used standard file and folder names mentioned in this cookbook, the only change you need to do in template is the dataset name. that's easy one-step procedure. For example, assuming your cohort is named *MBRUN*, run -->
+1. **tax_filtered_logTrans.txt**. This file contains transformed, abundance-filtered bacterial taxa
+2. **phenotypes.txt** file, the flat text tab-delimited file that contains information on covariates (see [description below](#step-41-correct-microbiome-for-covariates-create-annotation-files)). The list of necessary covariates includes:
+   * **Sex**  
+   * **Age**
+   * **3 first genetic PCs**
+   * **Technical microbiome covariates**, if any of these available, such as stool storage/delivery time, sequencing batches, etc. 
 
-<!-- ``` -->
-<!-- cat miQTL_cookbook/software/template.xml|perl -pe 's/COHORTNAME/MBRUN/' > ./settings.xml -->
-<!-- ``` -->
+3. **HRC imputed genotypes** in default HRC output format, that comprises per-chromosome VCF and INFO files. See more detailed description below. 
 
-<!-- The file **settings.xml** will be used on the next stage. -->
-
-<!-- ## Step 4.4B. Rename dataset in template - binary analysis -->
-
-<!-- If you used standard file and folder names mentioned in this cookbook, the only change you need to do in template is the dataset name. that's easy one-step procedure. For example, assuming your cohort is named *MBRUN*, run -->
-
-<!-- ``` -->
-<!-- cat miQTL_cookbook/software/template_binary.xml|perl -pe 's/COHORTNAME/MBRUN/' > ./settings_binary.xml -->
-<!-- ``` -->
-
-<!-- The file **settings_binary.xml** will be used on on the next stage. -->
+It's also important to remove some samples. Please [Step 4.3](#step-43-prepare-coupling-file) to get the instructions: 
+* **Remove ethnic outliers**, if you have any in your monoethnic cohort
+* **Keep only one individual from each twin pair**, if you have cohort of twins
 
 
-<!-- ## Step 4.5. Run miQTL mapping -->
+This chapter comprises the following steps
+1. [Step 4.1. Correct microbiome for covariates, create annotation files](#step-41-correct-microbiome-for-covariate-create-annotation-files)
+2. [Step 4.2. Filter genotypes](#step-42-filter-genotypes)
+3. [Step 4.3. Prepare coupling file](#step-43-prepare-coupling-file)
+4. [Step 4.4. Generate XML setting files for analyses](#step-44-generate-xml-setting-files-for-quantitative-and-binary-analyses)
+5. [Step 4.5. Run full miQTL mapping](#step-45-run-full-miqtl-mapping)
 
-<!-- First you need to unzip eQTL pipeline binaries: [eqtl-mapping-pipeline-1.4nZ-dist.zip](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/eqtl-mapping-pipeline-1.4nZ-dist.zip) from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). Simply run: -->
+## Step 4.1. Correct microbiome for covariates, create annotation files
 
-<!-- ``` -->
-<!-- unzip eqtl-mapping-pipeline-1.4nZ-dist.zip -->
-<!-- ``` -->
-<!-- These are the files that should be located in project folder: -->
+The initial files for this step are  *tax_filtered_logTrans.txt* and **phenotypes.txt** . If your phenotype samples IDs and microbiome sample IDs are different you can simply add **linkage file**. 
 
-<!-- 1. **tax_corrected.txt**  // The microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See [Chapter 1](#chapter-1-16s-data-processing) and [Step 3.1.](#step-31-correct-microbiome-for-covariates-and-create-annotation-file) -->
-<!-- 2. **tax_corrected.txt.annot** //Annotation file for taxonomies. See [Step 3.1.](#step-31-correct-microbiome-for-covariates-and-create-annotation-file) -->
-<!-- 3. **genotypes_trityper** // The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 3.2](#step-32-process-hrc-vcf-files) -->
-<!-- 4. **coupling_file.txt** // Coupling file. See [Step 3.3.](#step-33-prepare-coupling-file) -->
-<!-- 5. **eqtl-mapping-pipeline-1.4nZ** // The folder with eQTL pipeline binaries -->
-<!-- 6. **settings.xml** // XML settings file. See [Step 3.4.](#step-34-rename-dataset-in-template) -->
+This is an example of correct **phenotypes.txt** file. It should be *flat text*, *tab delimited*, with *header* and *sample names in rows*. If you use categorical variables (such as batches), please use *character strings* to encode them instead of *integers*. For example, if you will encode Batch1, Batch2 and Batch3 as 1, 2 and 3, the script will recognize it as numeric variable and will do the correction wrong.   
 
-<!-- If you have all of these ready, jun run this from a *screen* session: -->
+```
+SampleID  Sex   Age   PC1   PC2   PC3   Batch
+Sample1   0       23   1.2  9.2   0.1   b1
+Sample2   1       74   3.1  1.1   3.4   b2
+Sample3   0       58   2.5  -0.3  0.1   b1
+Sample4   1       76   0.1  5.3   4.3   b3
+```
 
-<!-- ``` -->
-<!-- java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings.xml  -->
-<!-- ``` -->
-<!-- ## Step 4.5B. Run miQTL mapping -binary -->
+This also works (column name for SampleID's can be skipped)
 
-<!-- Necessary files: -->
-<!-- 1. **tax_corrected_binary.txt**  // The microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See [Chapter 1](#chapter-1-16s-data-processing) and [Step 3.1.](#step-31b-correct-microbiome-for-covariates-for-binary-analysis) -->
-<!-- 2. **tax_corrected_binary.txt.annot** //Annotation file for taxonomies. See [Step 3.1.](#step-31b-correct-microbiome-for-covariates-for-binary-analysis) -->
-<!-- 3. **genotypes_trityper** // The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 3.2](#step-32-process-hrc-vcf-files) -->
-<!-- 4. **coupling_file.txt** // Coupling file. See [Step 3.3.](#step-33-prepare-coupling-file) -->
-<!-- 5. **eqtl-mapping-pipeline-1.4nZ** // The folder with eQTL pipeline binaries -->
-<!-- 6. **settings_binary.xml** // XML settings file. See [Step 3.4.](#step-34b-rename-dataset-in-template-binary-analysis) -->
+```
+Sex   Age   PC1   PC2   PC3   Batch
+Sample1   0       23   1.2  9.2   0.1   b1   
+Sample2   1       74   3.1  1.1   3.4   b2
+Sample3   0       58   2.5  -0.3  0.1   b1
+Sample4   1       76   0.1  5.3   4.3   b3
+```
 
-<!-- If you have all of these ready, jun run this from a *screen* session: -->
+If your sample names are **different** between taxonomy table and phenotype file, please add **linkage file**. This is an example of linkage file:
 
-<!-- ``` -->
-<!-- java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings_binary.xml  -->
-<!-- ``` -->
+```
+PhenotypeSample1  StoolSample1
+PhenotypeSample2  StoolSample2
+```
 
-<!-- You are done! Now you need to upload the results to UMCG server.  -->
+Phenotype ID comes first, followed by stool sample ID (again, it's tab-delimited file). 
+
+Now run (assuming your phenotype file is called **phenotypes.txt**)
+
+```
+#If your sample ID's are matched
+Rscript step4.1_covariate_correction.R tax_filtered_logTrans.txt phenotypes.txt
+
+#If your sample ID's are different between phenotypes and 16s libraries
+Rscript step4.1_covariate_correction.R tax_filtered_logTrans.txt phenotypes.txt linkage.txt
+```
+
+There will be 4 files generated:
+
+1. **tax_numeric.txt**
+2. **tax_numeric.txt.annot**
+3. **tax_binary.txt**
+4. **tax_binary.txt.annot**
+
+**Important note: the samples with NA values in one or more phenotypes will be excluded from the output. If you still want to include them, please impute missing values by median or mean**
+
+## Step 4.2. Filter genotypes
+
+**Important note: this procedure seems very similar to the one in Benchmark run. However, for this run we will use different cutoffs, so please don't skip this step!**
+
+First, you need to install **GenotypeHarmonizer** software. simply untar the archive [GenotypeHarmonizer-1.4.20-dist.tar.gz](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/GenotypeHarmonizer-1.4.20-dist.tar.gz) from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software) folder:
+
+
+```
+tar -zxf GenotypeHarmonizer-1.4.20-dist.tar.gz
+``` 
+
+Please check the structure of the genotype folder you downloaded from HRC. It should be per-chromosome gzipped VCF files:
+
+```
+chr10.dose.vcf.gz
+chr10.dose.vcf.gz.md5
+chr10.dose.vcf.gz.tbi
+chr10.dose.vcf.gz.tbi.md5
+chr10.info.gz
+chr10.info.gz.md5
+chr11.dose.vcf.gz
+chr11.dose.vcf.gz.md5
+chr11.dose.vcf.gz.tbi
+chr11.dose.vcf.gz.tbi.md5
+...
+```
+
+Keep only autosomal data in the folder (assuming your HRC folder is named **HRC_VCF**):
+
+```
+mkdir autosomal_genotypes
+cp HRC_VCF/chr[0-9]* autosomal_genotypes
+```
+
+Next command will perform the following steps:
+1. MAF filtering (*-mf* flag, 0.05 threshold)
+2. Imputation QC filtering (*-ip* flag, 0.4)
+3. Call rate filtering (*-cf* flag, 0.95)
+4. Translate genotypes from VCF to TRITYPER format
+
+To apply these procedures, run:
+```
+java -Xmx40G -jar ./GenotypeHarmonizer-1.4.20-SNAPSHOT/GenotypeHarmonizer.jar -i ./autosomal_genotypes -I VCFFOLDER -o trityper_chapter4 -O TRITYPER -mf 0.05 -ip 0.4 -cf 0.95 
+```
+
+The folder **trityper_chapter4** will be generated.
+
+For further information on *GenotypeHarmonizer*, please check its [GitHub](https://github.com/molgenis/systemsgenetics/wiki/Genotype-Harmonizer) or just contact me (alexa.kur@gmail.com).
+
+## Step 4.3. Prepare coupling file
+
+**Note: if you have participated in benchmark run, you probably have this file already.**
+
+This file is necessary to run the pipeline and should be named **coupling_file.txt**. It should contain linkages between genotype and microbiome sample names. It's necessary even if you have the same names (in this case, just make two exact columns). It should be the tab-delimited flat text file with two columns:
+
+```
+GenotypeSample1  StoolSample1
+GenotypeSample2  StoolSample2
+```
+
+**If you need to exclude some samples from analysis**, the easiest way to do so is just to remove corresponding lines from this **coupling file**.
+
+## Step 4.4. Generate XML setting files for quantitative and binary analyses
+
+To run whole-genome miQTL mapping for all bacterial traits, we need to generate two XML setting files, one for quantitative analysis and one for bacterial presence/absence analysis. The [template XML for quantitative analysis](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template.xml) and [template XML for binary analysis](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/template_binary.xml) can be downloaded from [software folder of this Cookbook](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software).
+
+If you used standard file and folder names mentioned in this cookbook, the only change you need to do in templates is the dataset name. That's easy one-step procedure for each template. For example, assuming your cohort is named *MBRUN*, run
+
+```
+cat miQTL_cookbook/software/template.xml|perl -pe 's/COHORTNAME/MBRUN/' > ./settings.xml
+cat miQTL_cookbook/software/template_binary.xml|perl -pe 's/COHORTNAME/MBRUN/' > ./settings_binary.xml
+```
+
+The files **settings.xml** and **settings_binary.xml** will be used on the next stage.
+
+## Step 4.5. Run full miQTL mapping
+
+First, you need to unzip eQTL pipeline binaries: [eqtl-mapping-pipeline-1.4nZ-dist.zip](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software/eqtl-mapping-pipeline-1.4nZ-dist.zip) from [software](https://github.com/alexa-kur/miQTL_cookbook/tree/master/software). Simply run:
+
+```
+unzip eqtl-mapping-pipeline-1.4nZ-dist.zip
+```
+These files that should be located in your project folder:
+
+1. **tax_numeric.txt**  // The microbiome file which contains filtered, transformed and covariate-corrected microbial taxa. See [Chapter 1](#chapter-1-16s-data-processing) and [Step 4.1](#step-41-correct-microbiome-for-covariate-create-annotation-files)
+2. **tax_numeric.txt.annot** //Annotation file for taxonomies. See [Step 4.1](#step-41-correct-microbiome-for-covariate-create-annotation-files)
+3. **tax_binary.txt**  // Presence/absence microbiome file. See [Step 4.1](#step-41-correct-microbiome-for-covariate-create-annotation-files)
+4. **tax_binary.txt.annot** //Presence/absence annotation file. See [Step 4.1](#step-41-correct-microbiome-for-covariate-create-annotation-files)
+5. **trityper_chapter4** // The folder which contains MAF and QC filtered autosomal genotypes in TriTyper format. See [Step 4.2](#step-42-filter-genotypes)
+6. **coupling_file.txt** // Coupling file thanks links microbiome IDs to genotype IDs. See [Step 4.3](#step-43-prepare-coupling-file)
+5. **eqtl-mapping-pipeline-1.4nZ** // The folder with eQTL pipeline binaries
+6. **settings.xml** // XML settings file for quantitative analysis. See [Step 4.4](#step-44-generate-xml-setting-files-for-quantitative-and-binary-analyses)
+7. **settings_binary.xml** // XML settings file for binary analysis. See [Step 4.4](#step-44-generate-xml-setting-files-for-quantitative-and-binary-analyses)
+
+If you have all of these ready, just run this commands from a *screen* session:
+
+For quantitative trait analysis:
+```
+java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings.xml
+```
+
+For binary trait analysis:
+```
+java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings_binary.xml
+```
+
+Having this finished, you will generate two folders, **COHORT_full_quant** and **COHORT_full_bin** that should be transferred to UMCG servers, see [Chapter 5](#chapter-5-acquire-guest-account-and-upload-data). 
+
+**Note: If you were involved in [Benchmark run](#chapter-3-perform-genome-wide-association-study-benchmark), you can use the same login name and ssh keys, it's not necessary to request access again.** 
+
 
 # Chapter 5. Acquire guest account and upload data 
 
@@ -449,7 +575,7 @@ lftp :~> exit
 ```
 
 
-Now it's our work to run meta-analysis.
+Now it's our job to run meta-analysis.
 
 
 
