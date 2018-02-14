@@ -9,7 +9,7 @@ phenos = phenos[!apply(phenos,1,function(x){any(is.na(x))}),,drop=F]
 
 
 if (exists("coupling_file")&file.exists(coupling_file)){
-  coupling = read.table(coupling_file,as.is = T)
+  coupling = read.table(coupling_file,colClasses = "character")
   has_both = (coupling[,1] %in% rownames(phenos)) & (coupling[,2] %in% rownames(tax))
   coupling= coupling[has_both,]
   tax = tax[coupling[,2],]
