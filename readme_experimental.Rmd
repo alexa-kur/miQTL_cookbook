@@ -341,7 +341,7 @@ To go through Chapter 4, please check that you have **all necessary files and fo
 2. **phenotypes.txt** file, the flat text tab-delimited file that contains information on covariates (see [description below](#step-41-correct-microbiome-for-covariates-create-annotation-files)). The list of necessary covariates includes:
    * **Sex**  
    * **Age**
-   * **3 first genetic PCs** for monoethnic cohort, OR **10 first genetic PCs** for multiethnic cohort
+   * **3 first genetic PCs**
    * **Technical microbiome covariates**, if any of these available, such as stool storage/delivery time, sequencing batches, etc. 
 
 3. **HRC imputed genotypes** in default HRC output format, that comprises per-chromosome VCF and INFO files. See more detailed description below. 
