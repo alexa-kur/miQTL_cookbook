@@ -17,7 +17,7 @@ This is the cookbook for performing the GWAS analysis of microbial abundance bas
 2. [Processing of SNP microarray data](#chapter-2-genotype-imputation)
 3. [Performing the association study benchmark](#chapter-3-perform-genome-wide-association-study-benchmark)
 4. [Performing the association study for all taxa](#chapter-4-perform-genome-wide-association-study-for-all-taxa)
-5. [Chapter 5. run GWAS on alpha diversity](#chapter-5-run-gwas-on-alpha-diversity)
+5. [Run GWAS on alpha diversity](#chapter-5-run-gwas-on-alpha-diversity)
 6. [Acquire account and upload data](#chapter-6-acquire-guest-account-and-upload-data) 
 7. Making the meta-analysis
 
@@ -98,7 +98,7 @@ Before usage, you can put the scripts and 16S database folter to your project fo
 
 ## 1.3. Running data processing. 
 
-### Step 1.1. Taxonomy binning. 
+### Step 1.1. Taxonomy binning 
 
 Go to your project folder. Replace SEQUENCES.FASTA to the filename of your 16S sequences and run:
 
@@ -109,7 +109,7 @@ java -Xmx10G -jar ./rdp_classifier_2.12/dist/classifier.jar -t ./SILVA128_rdpDB/
 File **results.out** will be generated. Please note that this step is time consuming and can take up to several days. 
 
 
-### Step 1.2. Process mapping results.
+### Step 1.2. Process mapping results
 
 ```
 bash step1.2_rdp_process.sh results.out 0.8
@@ -361,7 +361,7 @@ This chapter comprises the following steps
 
 ## Step 4.1. Correct microbiome for covariates, create annotation files
 
-The initial files for this step are  *tax_filtered_logTrans.txt* and **phenotypes.txt** . If your phenotype samples IDs and microbiome sample IDs are different you can simply add **linkage file**. 
+The initial files for this step are  **tax_filtered_logTrans.txt** and **phenotypes.txt** . If your phenotype samples IDs and microbiome sample IDs are different you can simply add **linkage file**. 
 
 This is an example of correct **phenotypes.txt** file. It should be *flat text*, *tab delimited*, with *header* and *sample names in rows*. If you use categorical variables (such as batches), please use *character strings* to encode them instead of *integers*. For example, if you will encode Batch1, Batch2 and Batch3 as 1, 2 and 3, the script will recognize it as numeric variable and will do the correction wrong.   
 
@@ -523,8 +523,45 @@ Having this finished, you will generate two folders, **COHORT_full_quant** and *
 
 # Chapter 5. run GWAS on alpha diversity
 
+This chapter describes the process of running GWAS on microbiome alpha diveristy. Mostly, the data necessary for this analysis was generated during previous steps. So, 
+1. **taxonomy_table.txt**. It was generated on the (Step1.2)[#step-12-process-mapping-results]
+2. **phenotypes.txt**, phenotype file with genetic principal components. The same as used on (Step 4.2)[#step-41-correct-microbiome-for-covariates-create-annotation-files]
+3. **genotypes** in TriTyper format. It was made on the (Step4.2)[#step-42-filter-genotypes]
+4. **linkage.txt**, phenotype-microbiome coupling file (optional). The same as used on the (Step 4.1)[#step-41-correct-microbiome-for-covariates-create-annotation-files]
+5. **coupling_file.txt**, genotype-microbiome coupling file. The same you generated on the [#step-43-prepare-coupling-file]
+
+## Step 5.1. Generate alpha diversity tables corrected for covariates 
+
+In your project folder, run:
+
+```
+#If your sample ID's are matched between 16S and phenotype data
+Rscript step5.1.create_alpha_diveristy.R taxonomy_table.txt phenotypes.txt
+
+#If your sample ID's are different between phenotypes and 16s libraries
+Rscript step5.1.create_alpha_diveristy.R taxonomy_table.txt phenotypes.txt linkage.txt
+```
+
+The files **alpha_div.txt** and **alpha_div.txt.annot** will be generated
 
 
+## Step 5.2. Create XML settings file 
+
+Replace MBRUN to the name of your cohort and run:
+
+```
+cat miQTL_cookbook/software/template_alpha.xml|perl -pe 's/COHORTNAME/MBRUN/' > ./settings_alpha.xml
+```
+
+## Step 5.3. Run alpha diversity GWAS
+
+Please check that you have **trityper_chapter4** folder, **coupling_file.txt** file, and **eqtl-mapping-pipeline-1.4nZ** in the folder from where you are going to submit this task. After that, run:
+
+```
+java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings_alpha.xml
+```
+
+The folder **COHORT_alpha** will be generated. Please upload it to our sftp server. See [Chapter 6](#Chapter-6-acquire-guest-account-and-upload-data) for more details.
 
 # Chapter 6. Acquire guest account and upload data 
 
