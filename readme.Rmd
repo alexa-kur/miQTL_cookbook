@@ -536,10 +536,10 @@ In your project folder, run:
 
 ```
 #If your sample ID's are matched between 16S and phenotype data
-Rscript step5.1.create_alpha_diveristy.R taxonomy_table.txt phenotypes.txt
+Rscript step5.1_create_alpha_diveristy.R taxonomy_table.txt phenotypes.txt
 
 #If your sample ID's are different between phenotypes and 16s libraries
-Rscript step5.1.create_alpha_diveristy.R taxonomy_table.txt phenotypes.txt linkage.txt
+Rscript step5.1_create_alpha_diveristy.R taxonomy_table.txt phenotypes.txt linkage.txt
 ```
 
 The files **alpha_div.txt** and **alpha_div.txt.annot** will be generated
