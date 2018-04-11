@@ -307,7 +307,7 @@ java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mappi
 
 Repeat this procedure for all 10 files. You will see your output inf the folder named **MBRUN_output**. In each subfolder you will find all QTL effects in files **eQTLs.txt.gz**. 
 
-In addition to playing with these results we want you to upload it to UMCG servers. Please go to [Chapter 6](#Chapter-6-acquire-guest-account-and-upload-data) to find how to get access and upload the data. Please note that we need all the files within output folder.
+In addition to playing with these results we want you to upload it to UMCG servers. Please go to [Chapter 6](#chapter-6-acquire-guest-account-and-upload-data) to find how to get access and upload the data. Please note that we need all the files within output folder.
 
 ## Step 3.6. PCoA plot on genera level
 
