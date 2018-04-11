@@ -561,7 +561,7 @@ Please check that you have **trityper_chapter4** folder, **coupling_file.txt** f
 java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings_alpha.xml
 ```
 
-The folder **COHORT_alpha** will be generated. Please upload it to our sftp server. See [Chapter 6](#Chapter-6-acquire-guest-account-and-upload-data) for more details.
+The folder **COHORT_alpha** will be generated. Please upload it to our sftp server. See [Chapter 6](#chapter-6-acquire-guest-account-and-upload-data) for more details.
 
 # Chapter 6. Acquire guest account and upload data 
 
