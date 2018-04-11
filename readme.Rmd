@@ -524,11 +524,11 @@ Having this finished, you will generate two folders, **COHORT_full_quant** and *
 # Chapter 5. run GWAS on alpha diversity
 
 This chapter describes the process of running GWAS on microbiome alpha diveristy. Mostly, the data necessary for this analysis was generated during previous steps. So, 
-1. **taxonomy_table.txt**. It was generated on the (Step1.2)[#step-12-process-mapping-results]
-2. **phenotypes.txt**, phenotype file with genetic principal components. The same as used on (Step 4.2)[#step-41-correct-microbiome-for-covariates-create-annotation-files]
-3. **genotypes** in TriTyper format. It was made on the (Step4.2)[#step-42-filter-genotypes]
-4. **linkage.txt**, phenotype-microbiome coupling file (optional). The same as used on the (Step 4.1)[#step-41-correct-microbiome-for-covariates-create-annotation-files]
-5. **coupling_file.txt**, genotype-microbiome coupling file. The same you generated on the [#step-43-prepare-coupling-file]
+1. **taxonomy_table.txt**. It was generated on the [Step1.2](#step-12-process-mapping-results)
+2. **phenotypes.txt**, phenotype file with genetic principal components. The same as used on [Step 4.1](#step-41-correct-microbiome-for-covariates-create-annotation-files)
+3. **genotypes** in TriTyper format. It was made on the [Step4.2](#step-42-filter-genotypes)
+4. **linkage.txt**, phenotype-microbiome coupling file (optional). The same as used on the [Step 4.1](#step-41-correct-microbiome-for-covariates-create-annotation-files)
+5. **coupling_file.txt**, genotype-microbiome coupling file. The same you generated on the [Step 4.3](#step-43-prepare-coupling-file)
 
 ## Step 5.1. Generate alpha diversity tables corrected for covariates 
 
@@ -555,7 +555,7 @@ cat miQTL_cookbook/software/template_alpha.xml|perl -pe 's/COHORTNAME/MBRUN/' > 
 
 ## Step 5.3. Run alpha diversity GWAS
 
-Please check that you have **trityper_chapter4** folder, **coupling_file.txt** file, and **eqtl-mapping-pipeline-1.4nZ** in the folder from where you are going to submit this task. After that, run:
+Please check that you have **trityper_chapter4** folder, **coupling_file.txt** file, and **eqtl-mapping-pipeline-1.4nZ** in the folder from where you are going to submit this task, see [Step4.5](#step-45-run-full-miqtl-mapping) for details. After that, run:
 
 ```
 java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings_alpha.xml
