@@ -3,7 +3,10 @@ taxonomy_file = options[1]
 phenotype_file = options[2]
 coupling_file = options[3]
 
-library(vegan)
+if(!require(vegan)){
+    install.packages("vegan")
+    library(vegan)
+}
 
 tax = read.table(taxonomy_file,header=T,row.names=1,sep="\t")
 phenos = read.table(phenotype_file,header = T,row.names=1,sep="\t")
