@@ -18,8 +18,9 @@ This is the cookbook for performing the GWAS analysis of microbial abundance bas
 3. [Performing the association study benchmark](#chapter-3-perform-genome-wide-association-study-benchmark)
 4. [Performing the association study for all taxa](#chapter-4-perform-genome-wide-association-study-for-all-taxa)
 5. [Run GWAS on alpha diversity](#chapter-5-run-gwas-on-alpha-diversity)
-6. [Acquire account and upload data](#chapter-6-acquire-guest-account-and-upload-data) 
-7. Making the meta-analysis
+6. [Run binary trait validation](#chapter-6-run-binary-trait-validation)
+7. [Acquire account and upload data](#chapter-7-acquire-guest-account-and-upload-data) 
+8. Making the meta-analysis
 
 Steps from 1 to 3 would be performed in-house by every participating group. Step 4 will be performed in UMCG (Groningen). Mostly, you can just copy the code strings from this cookbook and run them, but sometimes it's not the case (yet, but it will be after beta-testing).
 
@@ -564,7 +565,33 @@ java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mappi
 
 The folder **COHORT_alpha** will be generated. Please upload it to our sftp server. See [Chapter 6](#chapter-6-acquire-guest-account-and-upload-data) for more details.
 
-# Chapter 6. Acquire guest account and upload data 
+# Chapter 6. Run binary trait validation
+
+To run microbiome-wide GWAS on bacterial presence, we used fast but not precised method. To obtain accurate significance estimation, it's necessary to re-analyze top hits with slow but more correct procedure. To do so, please do the following:
+
+1. Update your local github repository copy and extract the list of SNP-bacterial pairs for further validaiton from [database folder](https://github.com/alexa-kur/miQTL_cookbook/tree/master/database):
+
+```
+zcat miQTL_Cookbook/database/topBinary_Sep2018.txt.gz > topBinary_Sep2018.txt
+```
+
+Check that you have the following files/folders in your project folder:
+1. **taxonomy_table.txt** file. The one you generated at [Step 1.2](#step-12-process-mapping-results)
+2. **phenotypes.txt** file. The one you used at [Step 4.1](#step-41-correct-microbiome-for-covariates-create-annotation-files))
+3. **trityper_chapter4** genotypes folder. The one you generated at [Step 4.2](#step-42-filter-genotypes)
+4. **coupling_file.txt** file. The one you prepared at [Step 4.3](#step-43-prepare-coupling-file) 
+5. **GenotypeHarmonizer-1.4.20-SNAPSHOT** folder. You used it at [Step 4.2](#step-42-filter-genotypes)
+
+Then, run the script **step6.1_validationBinary.R**, replacing COHORT with a name of your cohort:
+
+```
+Rscript step6.1_validationBinary.R -n COHORT
+```
+
+It will generate the file named **COHORT_binaryResults_updated.txt.gz**. Please upload it to [SFTP](#chapter-7-acquire-guest-account-and-upload-data) or our [Dropbox] (https://www.dropbox.com/home/Microbiome-QTL_Charge) and send the notification to Alexander Kurilshikov (alexa.kur@gmail.com).
+
+
+# Chapter 7. Acquire guest account and upload data 
 
 1. Generate private and public key pair as documented here:
 [http://wiki.gcc.rug.nl/wiki/RequestAccount]
