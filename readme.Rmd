@@ -577,10 +577,14 @@ zcat miQTL_Cookbook/database/topBinary_Sep2018.txt.gz > topBinary_Sep2018.txt
 
 Check that you have the following files/folders in your project folder:
 1. **taxonomy_table.txt** file. The one you generated at [Step 1.2](#step-12-process-mapping-results)
-2. **phenotypes.txt** file. The one you used at [Step 4.1](#step-41-correct-microbiome-for-covariates-create-annotation-files))
+2. **phenotypes.txt** file. The one you used at [Step 4.1](#step-41-correct-microbiome-for-covariates-create-annotation-files)
 3. **trityper_chapter4** genotypes folder. The one you generated at [Step 4.2](#step-42-filter-genotypes)
-4. **coupling_file.txt** file. The one you prepared at [Step 4.3](#step-43-prepare-coupling-file) 
-5. **GenotypeHarmonizer-1.4.20-SNAPSHOT** folder. You used it at [Step 4.2](#step-42-filter-genotypes)
+4. **GenotypeHarmonizer-1.4.20-SNAPSHOT** folder. You used it at [Step 4.2](#step-42-filter-genotypes)
+5. **coupling_file.txt** file. The one you prepared at [Step 4.3](#step-43-prepare-coupling-file) 
+6. **topBinary_Sep2018.txt**. See above. 
+
+If necessary, you can use other names for these files/folders by using builtin script parameters: *-m, -p, -g, -h, -c and -r* respectively.
+
 
 Then, run the script **step6.1_validationBinary.R**, replacing COHORT with a name of your cohort:
 
@@ -588,7 +592,7 @@ Then, run the script **step6.1_validationBinary.R**, replacing COHORT with a nam
 Rscript step6.1_validationBinary.R -n COHORT
 ```
 
-It will generate the file named **COHORT_binaryResults_updated.txt.gz**. Please upload it to [SFTP](#chapter-7-acquire-guest-account-and-upload-data) or our [Dropbox] (https://www.dropbox.com/home/Microbiome-QTL_Charge) and send the notification to Alexander Kurilshikov (alexa.kur@gmail.com).
+It will generate the file named **COHORT_binaryResults_updated.txt.gz**. Please upload it to [SFTP](#chapter-7-acquire-guest-account-and-upload-data) or our [Dropbox](https://www.dropbox.com/home/Microbiome-QTL_Charge) and send the notification to Alexander Kurilshikov (alexa.kur@gmail.com).
 
 
 # Chapter 7. Acquire guest account and upload data 
