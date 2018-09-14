@@ -592,7 +592,7 @@ Then, run the script **step6.1_validationBinary.R**, replacing COHORT with a nam
 Rscript step6.1_validationBinary.R -n COHORT
 ```
 
-It will generate the file named **COHORT_binaryResults_updated.txt.gz**. Please upload it to [SFTP](#chapter-7-acquire-guest-account-and-upload-data) or our [Dropbox](https://www.dropbox.com/home/Microbiome-QTL_Charge) and send the notification to Alexander Kurilshikov (alexa.kur@gmail.com).
+It will generate the file named **COHORT_binaryResults_updated.txt.gz**. Please upload it to [SFTP](#chapter-7-acquire-guest-account-and-upload-data) or our [Dropbox](https://www.dropbox.com/home/Microbiome-QTL_Charge) in the folder **binary_validation** and send the notification to Alexander Kurilshikov (alexa.kur@gmail.com).
 
 
 # Chapter 7. Acquire guest account and upload data 
