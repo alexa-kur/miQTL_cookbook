@@ -148,13 +148,13 @@ foreach(i = 1:nrow(data),.combine = rbind) %do% {
 write.table(report, file = paste0(opt$name,"_binaryResults_updated.txt"),sep="\t",quote = F,row.names=F)
 system(paste0("gzip ", opt$name,"_binaryResults_updated.txt"))
 
-system(paste0("mv ",opt$genotypes_folder,"/SNPs.txt.backup ", opt$genotypes_folder,"/SNPs.txt"))
-system(paste0("mv ",opt$genotypes_folder,"/SNPMappings.txt.backup ", opt$genotypes_folder,"/SNPMappings.txt"))
+#system(paste0("mv ",opt$genotypes_folder,"/SNPs.txt.backup ", opt$genotypes_folder,"/SNPs.txt"))
+#system(paste0("mv ",opt$genotypes_folder,"/SNPMappings.txt.backup ", opt$genotypes_folder,"/SNPMappings.txt"))
 
 
 system("rm trityper_subset.dosages.txt trityper_subset.genotypes.txt tmp.snp.subset.txt")
 message(paste0("Finished succesfully. Please send the file ",opt$name,"_binaryResults_updated.txt.gz to Alex Kurilshikov: alexa.kur@gmail.com"))
-quit(save="no")
+quit(save="no",runLast = TRUE)
 
 
 
