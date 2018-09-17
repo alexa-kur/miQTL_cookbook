@@ -576,7 +576,7 @@ zcat miQTL_Cookbook/database/topBinary_Sep2018.txt.gz > topBinary_Sep2018.txt
 ```
 
 Check that you have the following files/folders in your project folder:
-1. **taxonomy_table.txt** file. The one you generated at [Step 1.2](#step-12-process-mapping-results)
+1. **tax_binary.txt** file. The one you generated at [Step 4.1](#step-41-correct-microbiome-for-covariates-create-annotation-files)
 2. **phenotypes.txt** file. The one you used at [Step 4.1](#step-41-correct-microbiome-for-covariates-create-annotation-files)
 3. **trityper_chapter4** genotypes folder. The one you generated at [Step 4.2](#step-42-filter-genotypes)
 4. **GenotypeHarmonizer-1.4.20-SNAPSHOT** folder. You used it at [Step 4.2](#step-42-filter-genotypes)
