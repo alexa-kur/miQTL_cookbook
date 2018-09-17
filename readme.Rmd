@@ -308,7 +308,7 @@ java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mappi
 
 Repeat this procedure for all 10 files. You will see your output inf the folder named **MBRUN_output**. In each subfolder you will find all QTL effects in files **eQTLs.txt.gz**. 
 
-In addition to playing with these results we want you to upload it to UMCG servers. Please go to [Chapter 6](#chapter-6-acquire-guest-account-and-upload-data) to find how to get access and upload the data. Please note that we need all the files within output folder.
+In addition to playing with these results we want you to upload it to UMCG servers. Please go to [Chapter 7](#chapter-7-acquire-guest-account-and-upload-data) to find how to get access and upload the data. Please note that we need all the files within output folder.
 
 ## Step 3.6. PCoA plot on genera level
 
@@ -518,7 +518,7 @@ For binary trait analysis:
 java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings_binary.xml
 ```
 
-Having this finished, you will generate two folders, **COHORT_full_quant** and **COHORT_full_bin** that should be transferred to UMCG servers, see [Chapter 6](#chapter-6-acquire-guest-account-and-upload-data). 
+Having this finished, you will generate two folders, **COHORT_full_quant** and **COHORT_full_bin** that should be transferred to UMCG servers, see [Chapter 7](#chapter-7-acquire-guest-account-and-upload-data). 
 
 **Note: If you were involved in [Benchmark run](#chapter-3-perform-genome-wide-association-study-benchmark), you can use the same login name and ssh keys, it's not necessary to request access again.** 
 
@@ -563,7 +563,7 @@ Please check that you have **trityper_chapter4** folder, **coupling_file.txt** f
 java -XX:ParallelGCThreads=5 -Xmx30G -jar eqtl-mapping-pipeline-1.4nZ/eqtl-mapping-pipeline.jar --mode metaqtl --settings settings_alpha.xml
 ```
 
-The folder **COHORT_alpha** will be generated. Please upload it to our sftp server. See [Chapter 6](#chapter-6-acquire-guest-account-and-upload-data) for more details.
+The folder **COHORT_alpha** will be generated. Please upload it to our sftp server. See [Chapter 7](#chapter-7-acquire-guest-account-and-upload-data) for more details.
 
 # Chapter 6. Run binary trait validation
 
