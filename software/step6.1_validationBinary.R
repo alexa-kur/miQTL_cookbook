@@ -41,7 +41,7 @@ if(!file.exists(opt$harmonizer)){message("path to GenotypeHarmonizer folder is n
     system(paste0("mv ",opt$genotypes_folder,"/SNPs.txt.backup ", opt$genotypes_folder,"/SNPs.txt"))
     }
   if(file.exists(paste0(opt$genotypes_folder,"//SNPMappings.txt.backup")))   {
-    system(paste0("mv ",opt$genotypes_folder,"/SNPMappings.txt.backup", opt$genotypes_folder,"/SNPMappings.txt"))
+    system(paste0("mv ",opt$genotypes_folder,"/SNPMappings.txt.backup ", opt$genotypes_folder,"/SNPMappings.txt"))
   }
      
 }
@@ -86,8 +86,8 @@ write.table(snp_selection,"tmp.snp.subset.txt",quote = F,row.names=F,col.names=F
 
 message("external call of genotypeHarmonizer")
 
-if (file.exists("./GenotypeHarmonizer-1.4.20-SNAPSHOT/GenotypeHarmonizer.jar")){
-  system(paste0("java -Xmx40G -jar ./GenotypeHarmonizer-1.4.20-SNAPSHOT/GenotypeHarmonizer.jar -i ",
+if (file.exists(paste0(opt$harmonizer,"/GenotypeHarmonizer.jar"))){
+  system(paste0("java -Xmx40G -jar ", opt$harmonizer, "/GenotypeHarmonizer.jar -i ",
                 opt$genotypes_folder, 
                 " -I TRITYPER -o trityper_subset -O TABLE -vf ./tmp.snp.subset.txt"))
 } else {
