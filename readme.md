@@ -616,7 +616,7 @@ Dear GCC Helpdesk,
  [Institution]
 ```
 
-3. If you are ready with the analyses, please upload the the data to the server to your guest account acquired in Step 7 (named umcg-guest[0-9]). Please create the folder which is named by your cohort name and upload two output directories generated in step 3, named **./COHORTNAME_output** and **./COHORTNAME_output_binary**. You can use several options several options for uploading, like **lftp** or **sftp** 
+3. If you are ready with the analyses, please upload the the data to the server to your guest account acquired in Step 7 (named umcg-guest[0-9]). Please create the folder which is named by your cohort name and upload two output directories generated in Step 4, named **./COHORTNAME_full_quant** and **./COHORTNAME_full_bin**. You can use several options for uploading, like **lftp** or **sftp** 
 
 ```{r,eval = FALSE}
 #start lftp
