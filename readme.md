@@ -599,7 +599,7 @@ It will generate the file named **COHORT_binaryResults_updated.txt.gz**. Please 
 
 ## Step 6.2 second batch of validation results
 
-Since we got the updated summary statitistics after joing several new cohorts, it's necessary to add re-evaluate several SNP-bacterium associations. To do so, you need another script **step6.2_validationBinary_step2.R** and another database file **topBinary_Jan2019.txt**:
+Since we got the updated summary statitistics after joing several new cohorts, it's necessary to re-evaluate several new SNP-bacterium associations. To do so, you need another script, **step6.2_validationBinary_step2.R**, and another database file **topBinary_Jan2019.txt**:
 
 ```
 zcat miQTL_Cookbook/database/topBinary_Jan2019.txt.gz > topBinary_Jan2019.txt
@@ -611,7 +611,7 @@ The usage of the script is completely the same as previous one:
 Rscript step6.2_validationBinary_step2.R -n COHORT
 ```
 
-Again, you can can also modify the paths to the files (see [Step 6.1](#step-61-first-batch-of-validation-results)), if necessary. The output file called **COHORT_binaryResults_Jan2019_updated.txt.gz** should be sent to e-mail of Alex Kurilshikov (alexa.kur@gmail.com)
+Again, you can can also modify the paths to the files (see [Step 6.1](#step-61-first-batch-of-validation-results)), if necessary. The output file called **COHORT_binaryResults_Jan2019_updated.txt.gz** should be sent to Alex Kurilshikov' e-mail (alexa.kur@gmail.com)
 
 
 
