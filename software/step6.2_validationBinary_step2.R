@@ -127,7 +127,7 @@ message(paste0("all data layers loaded. total number of samples for analysis: ",
 # running_model and report results ----------------------------------------
 
 foreach(i = 1:nrow(data),.combine = rbind) %do% {
-  print(i)
+
   if ((data$ST.bac.name[i] %in% colnames(microbe)) & (data$SNPName[i] %in% index.snpnames) ) {
     bac = microbe[,data$ST.bac.name[i]]
     dos = dosages[,index.snpnames == data$SNPName[i],drop = F]
@@ -154,7 +154,7 @@ foreach(i = 1:nrow(data),.combine = rbind) %do% {
 }-> report
 
 write.table(report, file = paste0(opt$name,"_binaryResults_Jan2019_updated.txt"),sep="\t",quote = F,row.names=F)
-system(paste0("gzip ", opt$name,"_binaryResults_updated.txt"))
+system(paste0("gzip ", opt$name,"_binaryResults_Jan2019_updated.txt"))
 
 #system(paste0("mv ",opt$genotypes_folder,"/SNPs.txt.backup ", opt$genotypes_folder,"/SNPs.txt"))
 #system(paste0("mv ",opt$genotypes_folder,"/SNPMappings.txt.backup ", opt$genotypes_folder,"/SNPMappings.txt"))

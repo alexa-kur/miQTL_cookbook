@@ -575,6 +575,8 @@ To run microbiome-wide GWAS on bacterial presence, we used fast but not precised
 zcat miQTL_Cookbook/database/topBinary_Sep2018.txt.gz > topBinary_Sep2018.txt
 ```
 
+## Step 6.1 first batch of validation results
+
 Check that you have the following files/folders in your project folder:
 1. **tax_binary.txt** file. The one you generated at [Step 4.1](#step-41-correct-microbiome-for-covariates-create-annotation-files)
 2. **phenotypes.txt** file. The one you used at [Step 4.1](#step-41-correct-microbiome-for-covariates-create-annotation-files)
@@ -593,6 +595,25 @@ Rscript step6.1_validationBinary.R -n COHORT
 ```
 
 It will generate the file named **COHORT_binaryResults_updated.txt.gz**. Please upload it to [SFTP](#chapter-7-acquire-guest-account-and-upload-data) or our [Dropbox](https://www.dropbox.com/home/Microbiome-QTL_Charge) in the folder **binary_validation** and send the notification to Alexander Kurilshikov (alexa.kur@gmail.com).
+
+
+## Step 6.2 second batch of validation results
+
+Since we got the updated summary statitistics after joing several new cohorts, it's necessary to add re-evaluate several SNP-bacterium associations. To do so, you need another script **step6.2_validationBinary_step2.R** and another database file **topBinary_Jan2019.txt**:
+
+```
+zcat miQTL_Cookbook/database/topBinary_Jan2019.txt.gz > topBinary_Jan2019.txt
+```
+
+The usage of the script is completely the same as previous one:
+
+```
+Rscript step6.2_validationBinary_step2.R -n COHORT
+```
+
+Again, you can can also modify the paths to the files (see [Step 6.1](#step-61-first-batch-of-validation-results)), if necessary. The output file called **COHORT_binaryResults_Jan2019_updated.txt.gz** should be sent to e-mail of Alex Kurilshikov (alexa.kur@gmail.com)
+
+
 
 
 # Chapter 7. Acquire guest account and upload data 
