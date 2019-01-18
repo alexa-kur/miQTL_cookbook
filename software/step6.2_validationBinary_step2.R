@@ -59,10 +59,16 @@ full_snpnames = read.table(paste0(opt$genotypes_folder,"/SNPs.txt"),header=F,as.
 if(any(duplicated(full_snpnames[,1]))){
   if(!file.exists(paste0(opt$genotypes_folder,"/SNPs.txt.backup"))) {
     system(paste0("cp ",opt$genotypes_folder,"/SNPs.txt ", opt$genotypes_folder,"/SNPs.txt.backup"))
-    } else {message("backup file exists already");quit(save="no")}
+  } else {
+    system(paste0("cp ",opt$genotypes_folder,"/SNPs.txt.backup ", opt$genotypes_folder,"/SNPs.txt.backup.2"))
+    system(paste0("cp ",opt$genotypes_folder,"/SNPs.txt ", opt$genotypes_folder,"/SNPs.txt.backup"))
+    }
   if(!file.exists(paste0(opt$genotypes_folder,"/SNPMappings.txt.backup"))) { 
     system(paste0("cp ",opt$genotypes_folder,"/SNPMappings.txt ", opt$genotypes_folder,"/SNPMappings.txt.backup"))
-  } else {message("backup file exists already");quit(save="no")}
+  } else {
+    system(paste0("cp ",opt$genotypes_folder,"/SNPMappings.txt.backup ", opt$genotypes_folder,"/SNPMappings.txt.backup.2"))
+    system(paste0("cp ",opt$genotypes_folder,"/SNPMappings.txt ", opt$genotypes_folder,"/SNPMappings.txt.backup"))
+    }
   full_snplist2update = read.table(paste0(opt$genotypes_folder,"/SNPMappings.txt"),as.is = T,sep="\t")
   
   full_snpnames[duplicated(full_snpnames[,1]),1] = paste0(full_snpnames[duplicated(full_snpnames[,1]),1],".2")
